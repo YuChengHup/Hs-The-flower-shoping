@@ -20,7 +20,20 @@
 
     <mappers>
         <mapper resource="mapper/AdminMapper.xml"/>
+        <mapper resource="mapper/CartMapper.xml"/>
+        <mapper resource="mapper/CommodityMapper.xml"/>
+        <mapper resource="mapper/ConsumerMapper.xml"/>
+        <mapper resource="mapper/LocationMapper.xml"/>
+        <mapper resource="mapper/LogisticMapper.xml"/>
+        <mapper resource="mapper/OrdersMapper.xml"/>
+        <mapper resource="mapper/PhotoMapper.xml"/>
+        <mapper resource="mapper/SingleMapper.xml"/>
+        <mapper resource="mapper/SizeMapper.xml"/>
+        <mapper resource="mapper/SortMapper.xml"/>
+        <mapper resource="mapper/StarMapper.xml"/>
+        <mapper resource="mapper/StatisticMapper.xml"/>
         <mapper resource="mapper/TokenMapper.xml"/>
+
 
     </mappers>
 
