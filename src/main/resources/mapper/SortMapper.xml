@@ -13,7 +13,7 @@
     <select id="queryById" resultMap="BaseResultMap">
         select
           sor_id, sor_name, siz_id
-        from web-shop.sort
+        from sort
         where sor_id = #{sorId}
     </select>
 
@@ -21,7 +21,7 @@
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
           sor_id, sor_name, siz_id
-        from web-shop.sort
+        from sort
         limit #{offset}, #{limit}
     </select>
 
@@ -29,7 +29,7 @@
     <select id="queryAll" resultMap="BaseResultMap">
         select
           sor_id, sor_name, siz_id
-        from web-shop.sort
+        from sort
         <where>
             <if test="sorId != null">
                 and sor_id = #{sorId}
@@ -45,13 +45,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="sorId" useGeneratedKeys="true">
-        insert into web-shop.sort(sor_name, siz_id)
+        insert into sort(sor_name, siz_id)
         values (#{sorName}, #{sizId})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update web-shop.sort
+        update sort
         <set>
             <if test="sorName != null and sorName != ''">
                 sor_name = #{sorName},
@@ -65,7 +65,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from web-shop.sort where sor_id = #{sorId}
+        delete from sort where sor_id = #{sorId}
     </delete>
 
 </mapper>

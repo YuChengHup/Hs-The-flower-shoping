@@ -12,7 +12,7 @@
     <select id="queryById" resultMap="BaseResultMap">
         select
           siz_id, siz_name
-        from web-shop.size
+        from size
         where siz_id = #{sizId}
     </select>
 
@@ -20,7 +20,7 @@
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
           siz_id, siz_name
-        from web-shop.size
+        from size
         limit #{offset}, #{limit}
     </select>
 
@@ -28,7 +28,7 @@
     <select id="queryAll" resultMap="BaseResultMap">
         select
           siz_id, siz_name
-        from web-shop.size
+        from size
         <where>
             <if test="sizId != null">
                 and siz_id = #{sizId}
@@ -41,13 +41,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="sizId" useGeneratedKeys="true">
-        insert into web-shop.size(siz_name)
+        insert into size(siz_name)
         values (#{sizName})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update web-shop.size
+        update size
         <set>
             <if test="sizName != null and sizName != ''">
                 siz_name = #{sizName},
@@ -58,7 +58,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from web-shop.size where siz_id = #{sizId}
+        delete from size where siz_id = #{sizId}
     </delete>
 
 </mapper>

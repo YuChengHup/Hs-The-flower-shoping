@@ -15,7 +15,7 @@
     <select id="queryById" resultMap="BaseResultMap">
         select
           sta_id, con_id, com_id, by_sp1, by_sp2
-        from web-shop.star
+        from star
         where sta_id = #{staId}
     </select>
 
@@ -23,7 +23,7 @@
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
           sta_id, con_id, com_id, by_sp1, by_sp2
-        from web-shop.star
+        from star
         limit #{offset}, #{limit}
     </select>
 
@@ -31,7 +31,7 @@
     <select id="queryAll" resultMap="BaseResultMap">
         select
           sta_id, con_id, com_id, by_sp1, by_sp2
-        from web-shop.star
+        from star
         <where>
             <if test="staId != null">
                 and sta_id = #{staId}
@@ -53,13 +53,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="staId" useGeneratedKeys="true">
-        insert into web-shop.star(con_id, com_id, by_sp1, by_sp2)
+        insert into star(con_id, com_id, by_sp1, by_sp2)
         values (#{conId}, #{comId}, #{bySp1}, #{bySp2})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update web-shop.star
+        update star
         <set>
             <if test="conId != null">
                 con_id = #{conId},
@@ -79,7 +79,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from web-shop.star where sta_id = #{staId}
+        delete from star where sta_id = #{staId}
     </delete>
 
 </mapper>

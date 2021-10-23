@@ -23,7 +23,7 @@
     <select id="queryById" resultMap="BaseResultMap">
         select
           con_id, username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2
-        from web-shop.consumer
+        from consumer
         where con_id = #{conId}
     </select>
 
@@ -31,7 +31,7 @@
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
           con_id, username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2
-        from web-shop.consumer
+        from consumer
         limit #{offset}, #{limit}
     </select>
 
@@ -39,7 +39,7 @@
     <select id="queryAll" resultMap="BaseResultMap">
         select
           con_id, username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2
-        from web-shop.consumer
+        from consumer
         <where>
             <if test="conId != null">
                 and con_id = #{conId}
@@ -85,13 +85,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="conId" useGeneratedKeys="true">
-        insert into web-shop.consumer(username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2)
+        insert into consumer(username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2)
         values (#{username}, #{passwd}, #{conName}, #{conSex}, #{conTel}, #{conEmail}, #{conPhoto}, #{conStatus}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update web-shop.consumer
+        update consumer
         <set>
             <if test="username != null and username != ''">
                 username = #{username},
@@ -135,7 +135,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from web-shop.consumer where con_id = #{conId}
+        delete from consumer where con_id = #{conId}
     </delete>
 
 </mapper>

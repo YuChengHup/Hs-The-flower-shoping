@@ -18,7 +18,7 @@
     <select id="queryById" resultMap="BaseResultMap">
         select
           sta_id, sta_date, com_id, sta_num, sta_purch_price, sta_price, by_sp1, by_sp2
-        from web-shop.statistic
+        from statistic
         where sta_id = #{staId}
     </select>
 
@@ -26,7 +26,7 @@
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
           sta_id, sta_date, com_id, sta_num, sta_purch_price, sta_price, by_sp1, by_sp2
-        from web-shop.statistic
+        from statistic
         limit #{offset}, #{limit}
     </select>
 
@@ -34,7 +34,7 @@
     <select id="queryAll" resultMap="BaseResultMap">
         select
           sta_id, sta_date, com_id, sta_num, sta_purch_price, sta_price, by_sp1, by_sp2
-        from web-shop.statistic
+        from statistic
         <where>
             <if test="staId != null">
                 and sta_id = #{staId}
@@ -65,13 +65,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="staId" useGeneratedKeys="true">
-        insert into web-shop.statistic(sta_date, com_id, sta_num, sta_purch_price, sta_price, by_sp1, by_sp2)
+        insert into statistic(sta_date, com_id, sta_num, sta_purch_price, sta_price, by_sp1, by_sp2)
         values (#{staDate}, #{comId}, #{staNum}, #{staPurchPrice}, #{staPrice}, #{bySp1}, #{bySp2})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update web-shop.statistic
+        update statistic
         <set>
             <if test="staDate != null">
                 sta_date = #{staDate},
@@ -100,7 +100,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from web-shop.statistic where sta_id = #{staId}
+        delete from statistic where sta_id = #{staId}
     </delete>
 
 </mapper>

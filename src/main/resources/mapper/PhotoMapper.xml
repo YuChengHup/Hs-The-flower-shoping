@@ -16,7 +16,7 @@
     <select id="queryById" resultMap="BaseResultMap">
         select
           pho_id, pho_url, com_id, pho_default, by_sp1, by_sp2
-        from web-shop.photo
+        from photo
         where pho_id = #{phoId}
     </select>
 
@@ -24,7 +24,7 @@
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
           pho_id, pho_url, com_id, pho_default, by_sp1, by_sp2
-        from web-shop.photo
+        from photo
         limit #{offset}, #{limit}
     </select>
 
@@ -32,7 +32,7 @@
     <select id="queryAll" resultMap="BaseResultMap">
         select
           pho_id, pho_url, com_id, pho_default, by_sp1, by_sp2
-        from web-shop.photo
+        from photo
         <where>
             <if test="phoId != null">
                 and pho_id = #{phoId}
@@ -57,13 +57,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="phoId" useGeneratedKeys="true">
-        insert into web-shop.photo(pho_url, com_id, pho_default, by_sp1, by_sp2)
+        insert into photo(pho_url, com_id, pho_default, by_sp1, by_sp2)
         values (#{phoUrl}, #{comId}, #{phoDefault}, #{bySp1}, #{bySp2})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update web-shop.photo
+        update photo
         <set>
             <if test="phoUrl != null and phoUrl != ''">
                 pho_url = #{phoUrl},
@@ -86,7 +86,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from web-shop.photo where pho_id = #{phoId}
+        delete from photo where pho_id = #{phoId}
     </delete>
 
 </mapper>

@@ -18,7 +18,7 @@
     <select id="queryById" resultMap="BaseResultMap">
         select
           car_id, com_id, con_id, con_num, gmt_create, gmt_modified, by_sp1, by_sp2
-        from web-shop.cart
+        from cart
         where car_id = #{carId}
     </select>
 
@@ -26,7 +26,7 @@
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select
           car_id, com_id, con_id, con_num, gmt_create, gmt_modified, by_sp1, by_sp2
-        from web-shop.cart
+        from cart
         limit #{offset}, #{limit}
     </select>
 
@@ -34,7 +34,7 @@
     <select id="queryAll" resultMap="BaseResultMap">
         select
           car_id, com_id, con_id, con_num, gmt_create, gmt_modified, by_sp1, by_sp2
-        from web-shop.cart
+        from cart
         <where>
             <if test="carId != null">
                 and car_id = #{carId}
@@ -65,13 +65,13 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="carId" useGeneratedKeys="true">
-        insert into web-shop.cart(com_id, con_id, con_num, gmt_create, gmt_modified, by_sp1, by_sp2)
+        insert into cart(com_id, con_id, con_num, gmt_create, gmt_modified, by_sp1, by_sp2)
         values (#{comId}, #{conId}, #{conNum}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update web-shop.cart
+        update cart
         <set>
             <if test="comId != null">
                 com_id = #{comId},
@@ -100,7 +100,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from web-shop.cart where car_id = #{carId}
+        delete from cart where car_id = #{carId}
     </delete>
 
 </mapper>
