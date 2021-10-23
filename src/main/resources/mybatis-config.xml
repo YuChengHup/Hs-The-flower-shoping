@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!-- 起别名 -->
+    <typeAliases>
+        <package name="com.hs.entity"/>
+    </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--            方言-->
+            <property name="helperDialect" value="mysql"/>
+            <!--            如果pageSize为0，不分页-->
+            <property name="pageSizeZero" value="true"/>
+        </plugin>
+    </plugins>
+
+
+    <mappers>
+        <mapper resource="mapper/AdminMapper.xml"/>
+        <mapper resource="mapper/TokenMapper.xml"/>
+
+    </mappers>
+
+</configuration>

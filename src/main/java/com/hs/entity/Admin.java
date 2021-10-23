@@ -1,5 +1,9 @@
 package com.hs.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +12,9 @@ import java.io.Serializable;
  * @author makejava
  * @since 2021-10-22 20:54:50
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Admin implements Serializable {
     private static final long serialVersionUID = -29974046765587878L;
     /**
@@ -17,7 +24,7 @@ public class Admin implements Serializable {
     /**
     * 管理员
     */
-    private String admin;
+    private String admZh;
     /**
     * 密码
     */
@@ -32,44 +39,6 @@ public class Admin implements Serializable {
     private String bySp2;
 
 
-    public Integer getAdmId() {
-        return admId;
-    }
 
-    public void setAdmId(Integer admId) {
-        this.admId = admId;
-    }
-
-    public String getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(String admin) {
-        this.admin = admin;
-    }
-
-    public String getPasswd() {
-        return passwd;
-    }
-
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
-    }
-
-    public String getBySp1() {
-        return bySp1;
-    }
-
-    public void setBySp1(String bySp1) {
-        this.bySp1 = bySp1;
-    }
-
-    public String getBySp2() {
-        return bySp2;
-    }
-
-    public void setBySp2(String bySp2) {
-        this.bySp2 = bySp2;
-    }
 
 }

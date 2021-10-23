@@ -25,21 +25,28 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 登陆注册直接放行
-        List<String> tokenList = Arrays.asList("/admin/login", "/consumer/login", "/consumer/register");
-        String uri = request.getRequestURI();
-        if (tokenList.contains(uri)) {
-            return true;
-        }
+//        List<String> tokenList = Arrays.asList("/admin/login", "/consumer/login", "/consumer/register");
+//        String uri = request.getRequestURI();
+//        if (tokenList.contains(uri)) {
+//            return true;
+//        }
 
         String token = request.getHeader("token");
 
         if (token == null) {
+
             return false;
         } else {
             // 验证token是否存在
             Token token1 = tokenMapper.queryById(token);
-            return token1 != null;
+            if (token1 != null) {
+                response.setHeader("token", token);
+                return true;
+            } else {
+                return false;
+            }
         }
+
     }
 
     @Override

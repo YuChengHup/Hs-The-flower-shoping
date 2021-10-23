@@ -18,7 +18,8 @@ public interface AdminService {
      * @param admId 主键
      * @return 实例对象
      */
-    Admin queryById(Integer admId);
+    Admin queryById(Integer admId,String passwd);
+
 
     /**
      * 查询多条数据
@@ -37,13 +38,6 @@ public interface AdminService {
      */
     Admin insert(Admin admin);
 
-    /**
-     * 修改数据
-     *
-     * @param admin 实例对象
-     * @return 实例对象
-     */
-    Admin update(Admin admin);
 
     /**
      * 通过主键删除数据

@@ -32,14 +32,6 @@ public interface AdminMapper {
 
 
     /**
-     * 通过实体作为筛选条件查询
-     *
-     * @param admin 实例对象
-     * @return 对象列表
-     */
-    List<Admin> queryAll(Admin admin);
-
-    /**
      * 新增数据
      *
      * @param admin 实例对象
@@ -47,13 +39,6 @@ public interface AdminMapper {
      */
     int insert(Admin admin);
 
-    /**
-     * 修改数据
-     *
-     * @param admin 实例对象
-     * @return 影响行数
-     */
-    int update(Admin admin);
 
     /**
      * 通过主键删除数据

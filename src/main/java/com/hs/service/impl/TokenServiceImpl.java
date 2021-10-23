@@ -15,7 +15,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-10-22 20:54:50
  */
-@Service("tokenService")
+@Service
 public class TokenServiceImpl implements TokenService {
 
     @Autowired

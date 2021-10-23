@@ -1,12 +1,17 @@
 package com.hs.service.impl;
 
 import com.hs.entity.Admin;
+import com.hs.entity.Token;
 import com.hs.mapper.AdminMapper;
+import com.hs.mapper.TokenMapper;
 import com.hs.service.AdminService;
+import com.hs.util.RespBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (Admin)表服务实现类
@@ -14,21 +19,30 @@ import java.util.List;
  * @author makejava
  * @since 2021-10-22 20:54:50
  */
-@Service("adminService")
+@Service
 public class AdminServiceImpl implements AdminService {
-    @Resource
+
+    @Autowired
     private AdminMapper adminMapper;
 
     /**
-     * 通过ID查询单条数据
+     * 通过ID查询单条数据,登录
      *
      * @param admId 主键
      * @return 实例对象
      */
     @Override
-    public Admin queryById(Integer admId) {
-        return this.adminMapper.queryById(admId);
+    public Admin queryById(Integer admId,String passwd) {
+
+        Admin admin = adminMapper.queryById(admId);
+        if(passwd.equals(admin.getPasswd())){
+            return admin;
+        }else{
+            return null;
+        }
     }
+
+
 
     /**
      * 查询多条数据
@@ -54,17 +68,6 @@ public class AdminServiceImpl implements AdminService {
         return admin;
     }
 
-    /**
-     * 修改数据
-     *
-     * @param admin 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public Admin update(Admin admin) {
-        this.adminMapper.update(admin);
-        return this.queryById(admin.getAdmId());
-    }
 
     /**
      * 通过主键删除数据

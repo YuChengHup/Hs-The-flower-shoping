@@ -26,6 +26,10 @@ public class Token implements Serializable {
     */
     private Integer conId;
     /**
+     * 管理员编号
+     */
+    private Integer admId;
+    /**
     * 是否登录，0否1是
     */
     private Integer isLogin;
