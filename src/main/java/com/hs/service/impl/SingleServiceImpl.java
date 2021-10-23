@@ -3,6 +3,7 @@ package com.hs.service.impl;
 import com.hs.entity.Single;
 import com.hs.mapper.SingleMapper;
 import com.hs.service.SingleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,9 +15,10 @@ import java.util.List;
  * @author makejava
  * @since 2021-10-22 20:54:50
  */
-@Service("singleService")
+@Service
 public class SingleServiceImpl implements SingleService {
-    @Resource
+
+    @Autowired
     private SingleMapper singleMapper;
 
     /**

@@ -1,8 +1,11 @@
 package com.hs.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Commodity;
 import com.hs.mapper.CommodityMapper;
 import com.hs.service.CommodityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,9 +17,10 @@ import java.util.List;
  * @author makejava
  * @since 2021-10-22 20:54:50
  */
-@Service("commodityService")
+@Service
 public class CommodityServiceImpl implements CommodityService {
-    @Resource
+
+    @Autowired
     private CommodityMapper commodityMapper;
 
     /**
@@ -38,8 +42,10 @@ public class CommodityServiceImpl implements CommodityService {
      * @return 对象列表
      */
     @Override
-    public List<Commodity> queryAllByLimit(int offset, int limit) {
-        return this.commodityMapper.queryAllByLimit(offset, limit);
+    public PageInfo<Commodity> queryAll(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Commodity> commodityList = commodityMapper.queryAll();
+        return new PageInfo<>(commodityList);
     }
 
     /**

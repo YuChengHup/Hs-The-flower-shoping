@@ -3,6 +3,7 @@ package com.hs.service.impl;
 import com.hs.entity.Consumer;
 import com.hs.mapper.ConsumerMapper;
 import com.hs.service.ConsumerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,9 +15,10 @@ import java.util.List;
  * @author makejava
  * @since 2021-10-22 20:54:50
  */
-@Service("consumerService")
+@Service
 public class ConsumerServiceImpl implements ConsumerService {
-    @Resource
+
+    @Autowired
     private ConsumerMapper consumerMapper;
 
     /**

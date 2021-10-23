@@ -3,6 +3,7 @@ package com.hs.service.impl;
 import com.hs.entity.Location;
 import com.hs.mapper.LocationMapper;
 import com.hs.service.LocationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,9 +15,10 @@ import java.util.List;
  * @author makejava
  * @since 2021-10-22 20:54:50
  */
-@Service("locationService")
+@Service
 public class LocationServiceImpl implements LocationService {
-    @Resource
+
+    @Autowired
     private LocationMapper locationMapper;
 
     /**
