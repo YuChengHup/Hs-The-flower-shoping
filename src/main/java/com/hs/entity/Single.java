@@ -44,15 +44,11 @@ public class Single implements Serializable {
     /**
     * 插入时间
     */
-    @JsonFormat(pattern ="yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date gmtCreate;
+    private LocalDateTime gmtCreate;
     /**
      * 修改时间
      */
-    @JsonFormat(pattern ="yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date gmtModified;
+    private LocalDateTime gmtModified;
     /**
     * 备用
     */

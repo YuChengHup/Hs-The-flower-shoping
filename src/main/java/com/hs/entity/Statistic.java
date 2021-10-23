@@ -28,9 +28,7 @@ public class Statistic implements Serializable {
     /**
     * 统计日期
     */
-    @JsonFormat(pattern ="yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date gmtCreate;
+    private LocalDateTime gmtCreate;
     /**
     * 统计商品
     */

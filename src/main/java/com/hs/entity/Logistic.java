@@ -36,15 +36,11 @@ public class Logistic implements Serializable {
     /**
     * 发货日期
     */
-    @JsonFormat(pattern ="yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date gmtCreate;
+    private LocalDateTime gmtCreate;
     /**
      * 到货时间
      */
-    @JsonFormat(pattern ="yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date gmtModified;
+    private LocalDateTime gmtModified;
     /**
     * 备用
     */
