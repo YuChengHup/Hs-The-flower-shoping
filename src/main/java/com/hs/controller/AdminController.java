@@ -26,7 +26,7 @@ import java.util.UUID;
  * @since 2021-10-22 20:54:50
  */
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/end/admin")
 public class AdminController {
     /**
      * 服务对象

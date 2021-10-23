@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @since 2021-10-22 20:54:50
  */
 @RestController
-@RequestMapping("star")
+@RequestMapping("/end/star")
 public class StarController {
     /**
      * 服务对象

@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @since 2021-10-22 20:54:50
  */
 @RestController
-@RequestMapping("statistic")
+@RequestMapping("/end/statistic")
 public class StatisticController {
     /**
      * 服务对象

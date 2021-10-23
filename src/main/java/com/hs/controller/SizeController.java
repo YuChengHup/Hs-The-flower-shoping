@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @since 2021-10-22 20:54:50
  */
 @RestController
-@RequestMapping("size")
+@RequestMapping("/end/size")
 public class SizeController {
     /**
      * 服务对象
