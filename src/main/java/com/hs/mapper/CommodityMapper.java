@@ -14,7 +14,7 @@ import java.util.List;
 public interface CommodityMapper {
 
     /**
-     * 通过ID查询单条数据
+     * 通过ID查询单条数据，可以用
      *
      * @param comId 主键
      * @return 实例对象
@@ -23,7 +23,7 @@ public interface CommodityMapper {
 
 
     /**
-     * 通过实体作为筛选条件查询
+     * 通过实体作为筛选条件查询，可以用
      *
      * @param commodity 实例对象
      * @return 对象列表
@@ -31,7 +31,7 @@ public interface CommodityMapper {
     List<Commodity> queryAll();
 
     /**
-     * 新增数据
+     * 新增数据，可用
      *
      * @param commodity 实例对象
      * @return 影响行数
@@ -39,7 +39,7 @@ public interface CommodityMapper {
     int insert(Commodity commodity);
 
     /**
-     * 修改数据
+     * 修改数据，可用
      *
      * @param commodity 实例对象
      * @return 影响行数
@@ -47,7 +47,7 @@ public interface CommodityMapper {
     int update(Commodity commodity);
 
     /**
-     * 通过主键删除数据
+     * 通过主键删除数据，可用
      *
      * @param comId 主键
      * @return 影响行数

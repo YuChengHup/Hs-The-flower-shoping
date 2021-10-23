@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  * @since 2021-10-22 20:54:50
  */
 @RestController
-@RequestMapping("photo")
+@RequestMapping("/end/photo")
 public class PhotoController {
     /**
      * 服务对象

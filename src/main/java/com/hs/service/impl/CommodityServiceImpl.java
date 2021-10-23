@@ -31,19 +31,19 @@ public class CommodityServiceImpl implements CommodityService {
      */
     @Override
     public Commodity queryById(Integer comId) {
-        return this.commodityMapper.queryById(comId);
+        return commodityMapper.queryById(comId);
     }
 
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param pageNum 查询起始位置
+     * @param pageSize  查询条数
      * @return 对象列表
      */
     @Override
     public PageInfo<Commodity> queryAll(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<Commodity> commodityList = commodityMapper.queryAll();
         return new PageInfo<>(commodityList);
     }
@@ -55,9 +55,8 @@ public class CommodityServiceImpl implements CommodityService {
      * @return 实例对象
      */
     @Override
-    public Commodity insert(Commodity commodity) {
-        this.commodityMapper.insert(commodity);
-        return commodity;
+    public int insert(Commodity commodity) {
+        return commodityMapper.insert(commodity);
     }
 
     /**
@@ -67,9 +66,9 @@ public class CommodityServiceImpl implements CommodityService {
      * @return 实例对象
      */
     @Override
-    public Commodity update(Commodity commodity) {
-        this.commodityMapper.update(commodity);
-        return this.queryById(commodity.getComId());
+    public int update(Commodity commodity) {
+
+        return commodityMapper.update(commodity);
     }
 
     /**
@@ -80,6 +79,6 @@ public class CommodityServiceImpl implements CommodityService {
      */
     @Override
     public boolean deleteById(Integer comId) {
-        return this.commodityMapper.deleteById(comId) > 0;
+        return commodityMapper.deleteById(comId) > 0;
     }
 }

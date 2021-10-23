@@ -31,7 +31,7 @@ public interface CommodityService {
      * @param commodity 实例对象
      * @return 实例对象
      */
-    Commodity insert(Commodity commodity);
+    int insert(Commodity commodity);
 
     /**
      * 修改数据
@@ -39,7 +39,7 @@ public interface CommodityService {
      * @param commodity 实例对象
      * @return 实例对象
      */
-    Commodity update(Commodity commodity);
+    int update(Commodity commodity);
 
     /**
      * 通过主键删除数据

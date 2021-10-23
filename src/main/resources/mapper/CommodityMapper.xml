@@ -26,14 +26,6 @@
         where com_id = #{comId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="BaseResultMap">
-        select
-          com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, sor_id, gmt_create, gmt_modified, by_sp1, by_sp2
-        from commodity
-        limit #{offset}, #{limit}
-    </select>
-
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
