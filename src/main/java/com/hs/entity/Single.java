@@ -1,8 +1,10 @@
 package com.hs.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -42,11 +44,15 @@ public class Single implements Serializable {
     /**
     * 插入时间
     */
-    private LocalDateTime gmtCreate;
+    @JsonFormat(pattern ="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date gmtCreate;
     /**
-    * 修改时间
-    */
-    private LocalDateTime gmtModified;
+     * 修改时间
+     */
+    @JsonFormat(pattern ="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date gmtModified;
     /**
     * 备用
     */

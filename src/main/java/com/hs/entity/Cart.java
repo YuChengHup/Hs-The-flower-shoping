@@ -1,5 +1,8 @@
 package com.hs.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -30,10 +33,14 @@ public class Cart implements Serializable {
     /**
     * 插入时间
     */
+    @JsonFormat(pattern ="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date gmtCreate;
     /**
-    * 修改时间
-    */
+     * 修改时间
+     */
+    @JsonFormat(pattern ="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date gmtModified;
     /**
     * 备用

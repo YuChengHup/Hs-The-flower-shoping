@@ -1,8 +1,10 @@
 package com.hs.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -34,11 +36,15 @@ public class Logistic implements Serializable {
     /**
     * 发货日期
     */
-    private LocalDateTime logCreate;
+    @JsonFormat(pattern ="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date gmtCreate;
     /**
-    * 预计到货日期
-    */
-    private LocalDateTime logEstimate;
+     * 到货时间
+     */
+    @JsonFormat(pattern ="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date gmtModified;
     /**
     * 备用
     */

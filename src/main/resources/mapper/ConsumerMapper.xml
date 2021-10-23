@@ -22,7 +22,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          con_id, username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2
+        con_id, username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2
         from consumer
         where con_id = #{conId}
     </select>
