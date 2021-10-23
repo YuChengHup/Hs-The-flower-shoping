@@ -3,6 +3,7 @@ package com.hs.service.impl;
 import com.hs.entity.Star;
 import com.hs.mapper.StarMapper;
 import com.hs.service.StarService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,9 +15,10 @@ import java.util.List;
  * @author makejava
  * @since 2021-10-22 20:54:50
  */
-@Service("starService")
+@Service
 public class StarServiceImpl implements StarService {
-    @Resource
+
+    @Autowired
     private StarMapper starMapper;
 
     /**

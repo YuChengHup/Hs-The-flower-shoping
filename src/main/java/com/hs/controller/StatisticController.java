@@ -2,6 +2,7 @@ package com.hs.controller;
 
 import com.hs.entity.Statistic;
 import com.hs.service.StatisticService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ public class StatisticController {
     /**
      * 服务对象
      */
-    @Resource
+    @Autowired
     private StatisticService statisticService;
 
     /**

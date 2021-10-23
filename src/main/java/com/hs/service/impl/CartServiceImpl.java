@@ -3,6 +3,7 @@ package com.hs.service.impl;
 import com.hs.entity.Cart;
 import com.hs.mapper.CartMapper;
 import com.hs.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,7 +17,8 @@ import java.util.List;
  */
 @Service
 public class CartServiceImpl implements CartService {
-    @Resource
+
+    @Autowired
     private CartMapper cartMapper;
 
     /**

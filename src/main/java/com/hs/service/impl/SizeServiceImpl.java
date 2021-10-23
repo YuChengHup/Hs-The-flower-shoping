@@ -3,6 +3,7 @@ package com.hs.service.impl;
 import com.hs.entity.Size;
 import com.hs.mapper.SizeMapper;
 import com.hs.service.SizeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,9 +15,10 @@ import java.util.List;
  * @author makejava
  * @since 2021-10-22 20:54:50
  */
-@Service("sizeService")
+@Service
 public class SizeServiceImpl implements SizeService {
-    @Resource
+
+    @Autowired
     private SizeMapper sizeMapper;
 
     /**

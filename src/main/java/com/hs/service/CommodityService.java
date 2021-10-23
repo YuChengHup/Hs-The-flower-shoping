@@ -1,8 +1,7 @@
 package com.hs.service;
 
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Commodity;
-
-import java.util.List;
 
 /**
  * (Commodity)表服务接口
@@ -21,13 +20,10 @@ public interface CommodityService {
     Commodity queryById(Integer comId);
 
     /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
+     * 查询所有
+     * @return
      */
-    List<Commodity> queryAllByLimit(int offset, int limit);
+    PageInfo<Commodity> queryAll(int pageNum, int pageSize);
 
     /**
      * 新增数据
@@ -35,7 +31,7 @@ public interface CommodityService {
      * @param commodity 实例对象
      * @return 实例对象
      */
-    Commodity insert(Commodity commodity);
+    int insert(Commodity commodity);
 
     /**
      * 修改数据
@@ -43,7 +39,7 @@ public interface CommodityService {
      * @param commodity 实例对象
      * @return 实例对象
      */
-    Commodity update(Commodity commodity);
+    int update(Commodity commodity);
 
     /**
      * 通过主键删除数据

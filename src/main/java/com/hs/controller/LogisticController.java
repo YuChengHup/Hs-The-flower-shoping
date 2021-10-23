@@ -2,6 +2,7 @@ package com.hs.controller;
 
 import com.hs.entity.Logistic;
 import com.hs.service.LogisticService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ public class LogisticController {
     /**
      * 服务对象
      */
-    @Resource
+    @Autowired
     private LogisticService logisticService;
 
     /**
