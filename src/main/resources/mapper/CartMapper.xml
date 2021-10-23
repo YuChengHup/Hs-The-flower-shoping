@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.dao.CartDao">
+
+    <resultMap id="BaseResultMap" type="com.hs.entity.Cart">
+        <!--@Table cart-->
+        <result property="carId" column="car_id" jdbcType="INTEGER"/>
+        <result property="comId" column="com_id" jdbcType="INTEGER"/>
+        <result property="conId" column="con_id" jdbcType="INTEGER"/>
+        <result property="conNum" column="con_num" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="bySp1" column="by_sp1" jdbcType="VARCHAR"/>
+        <result property="bySp2" column="by_sp2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          car_id, com_id, con_id, con_num, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.cart
+        where car_id = #{carId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          car_id, com_id, con_id, con_num, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.cart
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          car_id, com_id, con_id, con_num, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.cart
+        <where>
+            <if test="carId != null">
+                and car_id = #{carId}
+            </if>
+            <if test="comId != null">
+                and com_id = #{comId}
+            </if>
+            <if test="conId != null">
+                and con_id = #{conId}
+            </if>
+            <if test="conNum != null">
+                and con_num = #{conNum}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                and by_sp1 = #{bySp1}
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                and by_sp2 = #{bySp2}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="carId" useGeneratedKeys="true">
+        insert into web-shop.cart(com_id, con_id, con_num, gmt_create, gmt_modified, by_sp1, by_sp2)
+        values (#{comId}, #{conId}, #{conNum}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update web-shop.cart
+        <set>
+            <if test="comId != null">
+                com_id = #{comId},
+            </if>
+            <if test="conId != null">
+                con_id = #{conId},
+            </if>
+            <if test="conNum != null">
+                con_num = #{conNum},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                by_sp1 = #{bySp1},
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                by_sp2 = #{bySp2},
+            </if>
+        </set>
+        where car_id = #{carId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from web-shop.cart where car_id = #{carId}
+    </delete>
+
+</mapper>

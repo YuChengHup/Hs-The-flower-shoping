@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.dao.SizeDao">
+
+    <resultMap id="BaseResultMap" type="com.hs.entity.Size">
+        <!--@Table size-->
+        <result property="sizId" column="siz_id" jdbcType="INTEGER"/>
+        <result property="sizName" column="siz_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          siz_id, siz_name
+        from web-shop.size
+        where siz_id = #{sizId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          siz_id, siz_name
+        from web-shop.size
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          siz_id, siz_name
+        from web-shop.size
+        <where>
+            <if test="sizId != null">
+                and siz_id = #{sizId}
+            </if>
+            <if test="sizName != null and sizName != ''">
+                and siz_name = #{sizName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="sizId" useGeneratedKeys="true">
+        insert into web-shop.size(siz_name)
+        values (#{sizName})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update web-shop.size
+        <set>
+            <if test="sizName != null and sizName != ''">
+                siz_name = #{sizName},
+            </if>
+        </set>
+        where siz_id = #{sizId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from web-shop.size where siz_id = #{sizId}
+    </delete>
+
+</mapper>

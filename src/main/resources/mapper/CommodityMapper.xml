@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.dao.CommodityDao">
+
+    <resultMap id="BaseResultMap" type="com.hs.entity.Commodity">
+        <!--@Table commodity-->
+        <result property="comId" column="com_id" jdbcType="INTEGER"/>
+        <result property="comName" column="com_name" jdbcType="VARCHAR"/>
+        <result property="comPurchPrice" column="com_purch_price" jdbcType="OTHER"/>
+        <result property="comPrice" column="com_price" jdbcType="OTHER"/>
+        <result property="comNum" column="com_num" jdbcType="INTEGER"/>
+        <result property="comDescription" column="com_description" jdbcType="VARCHAR"/>
+        <result property="comVolume" column="com_volume" jdbcType="INTEGER"/>
+        <result property="sorId" column="sor_id" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="bySp1" column="by_sp1" jdbcType="VARCHAR"/>
+        <result property="bySp2" column="by_sp2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, sor_id, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.commodity
+        where com_id = #{comId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, sor_id, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.commodity
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, sor_id, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.commodity
+        <where>
+            <if test="comId != null">
+                and com_id = #{comId}
+            </if>
+            <if test="comName != null and comName != ''">
+                and com_name = #{comName}
+            </if>
+            <if test="comPurchPrice != null">
+                and com_purch_price = #{comPurchPrice}
+            </if>
+            <if test="comPrice != null">
+                and com_price = #{comPrice}
+            </if>
+            <if test="comNum != null">
+                and com_num = #{comNum}
+            </if>
+            <if test="comDescription != null and comDescription != ''">
+                and com_description = #{comDescription}
+            </if>
+            <if test="comVolume != null">
+                and com_volume = #{comVolume}
+            </if>
+            <if test="sorId != null">
+                and sor_id = #{sorId}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                and by_sp1 = #{bySp1}
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                and by_sp2 = #{bySp2}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="comId" useGeneratedKeys="true">
+        insert into web-shop.commodity(com_name, com_purch_price, com_price, com_num, com_description, com_volume, sor_id, gmt_create, gmt_modified, by_sp1, by_sp2)
+        values (#{comName}, #{comPurchPrice}, #{comPrice}, #{comNum}, #{comDescription}, #{comVolume}, #{sorId}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update web-shop.commodity
+        <set>
+            <if test="comName != null and comName != ''">
+                com_name = #{comName},
+            </if>
+            <if test="comPurchPrice != null">
+                com_purch_price = #{comPurchPrice},
+            </if>
+            <if test="comPrice != null">
+                com_price = #{comPrice},
+            </if>
+            <if test="comNum != null">
+                com_num = #{comNum},
+            </if>
+            <if test="comDescription != null and comDescription != ''">
+                com_description = #{comDescription},
+            </if>
+            <if test="comVolume != null">
+                com_volume = #{comVolume},
+            </if>
+            <if test="sorId != null">
+                sor_id = #{sorId},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                by_sp1 = #{bySp1},
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                by_sp2 = #{bySp2},
+            </if>
+        </set>
+        where com_id = #{comId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from web-shop.commodity where com_id = #{comId}
+    </delete>
+
+</mapper>

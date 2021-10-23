@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.dao.OrdersDao">
+
+    <resultMap id="BaseResultMap" type="com.hs.entity.Orders">
+        <!--@Table orders-->
+        <result property="ordId" column="ord_id" jdbcType="INTEGER"/>
+        <result property="conId" column="con_id" jdbcType="INTEGER"/>
+        <result property="locId" column="loc_id" jdbcType="INTEGER"/>
+        <result property="ordTotalPrice" column="ord_total_price" jdbcType="OTHER"/>
+        <result property="ordStatus" column="ord_status" jdbcType="VARCHAR"/>
+        <result property="ordRemark" column="ord_remark" jdbcType="VARCHAR"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="bySp1" column="by_sp1" jdbcType="VARCHAR"/>
+        <result property="bySp2" column="by_sp2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          ord_id, con_id, loc_id, ord_total_price, ord_status, ord_remark, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.orders
+        where ord_id = #{ordId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          ord_id, con_id, loc_id, ord_total_price, ord_status, ord_remark, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.orders
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          ord_id, con_id, loc_id, ord_total_price, ord_status, ord_remark, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.orders
+        <where>
+            <if test="ordId != null">
+                and ord_id = #{ordId}
+            </if>
+            <if test="conId != null">
+                and con_id = #{conId}
+            </if>
+            <if test="locId != null">
+                and loc_id = #{locId}
+            </if>
+            <if test="ordTotalPrice != null">
+                and ord_total_price = #{ordTotalPrice}
+            </if>
+            <if test="ordStatus != null and ordStatus != ''">
+                and ord_status = #{ordStatus}
+            </if>
+            <if test="ordRemark != null and ordRemark != ''">
+                and ord_remark = #{ordRemark}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                and by_sp1 = #{bySp1}
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                and by_sp2 = #{bySp2}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="ordId" useGeneratedKeys="true">
+        insert into web-shop.orders(con_id, loc_id, ord_total_price, ord_status, ord_remark, gmt_create, gmt_modified, by_sp1, by_sp2)
+        values (#{conId}, #{locId}, #{ordTotalPrice}, #{ordStatus}, #{ordRemark}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update web-shop.orders
+        <set>
+            <if test="conId != null">
+                con_id = #{conId},
+            </if>
+            <if test="locId != null">
+                loc_id = #{locId},
+            </if>
+            <if test="ordTotalPrice != null">
+                ord_total_price = #{ordTotalPrice},
+            </if>
+            <if test="ordStatus != null and ordStatus != ''">
+                ord_status = #{ordStatus},
+            </if>
+            <if test="ordRemark != null and ordRemark != ''">
+                ord_remark = #{ordRemark},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                by_sp1 = #{bySp1},
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                by_sp2 = #{bySp2},
+            </if>
+        </set>
+        where ord_id = #{ordId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from web-shop.orders where ord_id = #{ordId}
+    </delete>
+
+</mapper>

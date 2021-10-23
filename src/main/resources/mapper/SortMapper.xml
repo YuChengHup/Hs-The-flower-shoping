@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.dao.SortDao">
+
+    <resultMap id="BaseResultMap" type="com.hs.entity.Sort">
+        <!--@Table sort-->
+        <result property="sorId" column="sor_id" jdbcType="INTEGER"/>
+        <result property="sorName" column="sor_name" jdbcType="VARCHAR"/>
+        <result property="sizId" column="siz_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          sor_id, sor_name, siz_id
+        from web-shop.sort
+        where sor_id = #{sorId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          sor_id, sor_name, siz_id
+        from web-shop.sort
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          sor_id, sor_name, siz_id
+        from web-shop.sort
+        <where>
+            <if test="sorId != null">
+                and sor_id = #{sorId}
+            </if>
+            <if test="sorName != null and sorName != ''">
+                and sor_name = #{sorName}
+            </if>
+            <if test="sizId != null">
+                and siz_id = #{sizId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="sorId" useGeneratedKeys="true">
+        insert into web-shop.sort(sor_name, siz_id)
+        values (#{sorName}, #{sizId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update web-shop.sort
+        <set>
+            <if test="sorName != null and sorName != ''">
+                sor_name = #{sorName},
+            </if>
+            <if test="sizId != null">
+                siz_id = #{sizId},
+            </if>
+        </set>
+        where sor_id = #{sorId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from web-shop.sort where sor_id = #{sorId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.dao.SingleDao">
+
+    <resultMap id="BaseResultMap" type="com.hs.entity.Single">
+        <!--@Table single-->
+        <result property="sinId" column="sin_id" jdbcType="INTEGER"/>
+        <result property="ordId" column="ord_id" jdbcType="INTEGER"/>
+        <result property="comId" column="com_id" jdbcType="INTEGER"/>
+        <result property="sinNum" column="sin_num" jdbcType="INTEGER"/>
+        <result property="sinPrice" column="sin_price" jdbcType="OTHER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="bySp1" column="by_sp1" jdbcType="VARCHAR"/>
+        <result property="bySp2" column="by_sp2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          sin_id, ord_id, com_id, sin_num, sin_price, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.single
+        where sin_id = #{sinId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          sin_id, ord_id, com_id, sin_num, sin_price, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.single
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          sin_id, ord_id, com_id, sin_num, sin_price, gmt_create, gmt_modified, by_sp1, by_sp2
+        from web-shop.single
+        <where>
+            <if test="sinId != null">
+                and sin_id = #{sinId}
+            </if>
+            <if test="ordId != null">
+                and ord_id = #{ordId}
+            </if>
+            <if test="comId != null">
+                and com_id = #{comId}
+            </if>
+            <if test="sinNum != null">
+                and sin_num = #{sinNum}
+            </if>
+            <if test="sinPrice != null">
+                and sin_price = #{sinPrice}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                and by_sp1 = #{bySp1}
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                and by_sp2 = #{bySp2}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="sinId" useGeneratedKeys="true">
+        insert into web-shop.single(ord_id, com_id, sin_num, sin_price, gmt_create, gmt_modified, by_sp1, by_sp2)
+        values (#{ordId}, #{comId}, #{sinNum}, #{sinPrice}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update web-shop.single
+        <set>
+            <if test="ordId != null">
+                ord_id = #{ordId},
+            </if>
+            <if test="comId != null">
+                com_id = #{comId},
+            </if>
+            <if test="sinNum != null">
+                sin_num = #{sinNum},
+            </if>
+            <if test="sinPrice != null">
+                sin_price = #{sinPrice},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                by_sp1 = #{bySp1},
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                by_sp2 = #{bySp2},
+            </if>
+        </set>
+        where sin_id = #{sinId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from web-shop.single where sin_id = #{sinId}
+    </delete>
+
+</mapper>

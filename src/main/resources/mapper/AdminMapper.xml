@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hs.dao.AdminDao">
+
+    <resultMap id="BaseResultMap" type="com.hs.entity.Admin">
+        <!--@Table admin-->
+        <result property="admId" column="adm_id" jdbcType="INTEGER"/>
+        <result property="admin" column="admin" jdbcType="VARCHAR"/>
+        <result property="passwd" column="passwd" jdbcType="VARCHAR"/>
+        <result property="bySp1" column="by_sp1" jdbcType="VARCHAR"/>
+        <result property="bySp2" column="by_sp2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          adm_id, admin, passwd, by_sp1, by_sp2
+        from web-shop.admin
+        where adm_id = #{admId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          adm_id, admin, passwd, by_sp1, by_sp2
+        from web-shop.admin
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          adm_id, admin, passwd, by_sp1, by_sp2
+        from web-shop.admin
+        <where>
+            <if test="admId != null">
+                and adm_id = #{admId}
+            </if>
+            <if test="admin != null and admin != ''">
+                and admin = #{admin}
+            </if>
+            <if test="passwd != null and passwd != ''">
+                and passwd = #{passwd}
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                and by_sp1 = #{bySp1}
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                and by_sp2 = #{bySp2}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="admId" useGeneratedKeys="true">
+        insert into web-shop.admin(admin, passwd, by_sp1, by_sp2)
+        values (#{admin}, #{passwd}, #{bySp1}, #{bySp2})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update web-shop.admin
+        <set>
+            <if test="admin != null and admin != ''">
+                admin = #{admin},
+            </if>
+            <if test="passwd != null and passwd != ''">
+                passwd = #{passwd},
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                by_sp1 = #{bySp1},
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                by_sp2 = #{bySp2},
+            </if>
+        </set>
+        where adm_id = #{admId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from web-shop.admin where adm_id = #{admId}
+    </delete>
+
+</mapper>
