@@ -51,8 +51,6 @@ public class AdminController {
     public RespBean<Admin> login(Integer admId, String passwd,ServletResponse response) {
 
 
-
-
         Admin admin = adminService.queryById(admId, passwd);
         if(admin==null){
             return RespBean.faild();
@@ -65,6 +63,12 @@ public class AdminController {
             resp.setHeader("token",token.getToken());
             return RespBean.success(admin);
         }
+    }
+    @GetMapping("/loginout")
+    public RespBean<Admin> login(Integer admId) {
+
+        return RespBean.success();
+
     }
 
 }
