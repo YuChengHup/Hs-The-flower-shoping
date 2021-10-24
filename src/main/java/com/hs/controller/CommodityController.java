@@ -2,6 +2,7 @@ package com.hs.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.hs.entity.Commodity;
+import com.hs.entity.CommodityVO;
 import com.hs.service.CommodityService;
 import com.hs.util.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,28 +32,28 @@ public class CommodityController {
      * @param comId 主键
      * @return 单条数据
      */
-    @GetMapping("/selectOne/{comId}")
-    public Commodity selectOne(@PathVariable("comId") Integer comId) {
+    @GetMapping("/select_one/{comId}")
+    public CommodityVO selectOne(@PathVariable("comId") Integer comId) {
         return commodityService.queryById(comId);
     }
 
     /**
-     * 查询所有,分页               ================已测，没问题====
+     * 查询所有,分页          动态sql     ================已测，没问题====
      * @param pageNum 第几页
      * @return
      */
-    @GetMapping("/queryall/{pageNum}")
-    public RespBean<PageInfo<Commodity>> queryAll(@PathVariable("pageNum") Integer pageNum) {
-        PageInfo<Commodity> commodityPageInfo = commodityService.queryAll(pageNum);
+    @PostMapping("/query_all/{pageNum}")
+    public RespBean<PageInfo<CommodityVO>> queryAll(@PathVariable("pageNum") Integer pageNum,Commodity commodity) {
+        PageInfo<CommodityVO> commodityPageInfo = commodityService.queryAll(pageNum,commodity);
         return RespBean.success(commodityPageInfo);
     }
 
     /**
-     * 添加数据                   ================已测，没问题====
+     * 添加数据                   ================已测，没问题=======
      * @param commodity 实例对象
      * @return 实例对象
      */
-    @PostMapping("/insertOne")
+    @PostMapping("/insert_one")
     public RespBean<Commodity> insertOne(Commodity commodity) {
         commodity.setGmtCreate(LocalDateTime.now());
         commodity.setGmtModified(LocalDateTime.now());
@@ -68,7 +69,7 @@ public class CommodityController {
      * @param commodity 修改的对象
      * @return 修改后的实例对象
      */
-    @PutMapping("/updateOne")
+    @PutMapping("/update_one")
     public RespBean<Commodity> updateOne(Commodity commodity) {
         commodity.setGmtModified(LocalDateTime.now());
         int i = commodityService.update(commodity);
@@ -83,7 +84,7 @@ public class CommodityController {
      * @param comId 商品编号
      * @return boolean
      */
-    @DeleteMapping("/deleteOne/{comId}")
+    @DeleteMapping("/delete_one/{comId}")
     public RespBean<Boolean> insertOne(@PathVariable("comId") Integer comId) {
         boolean b = commodityService.deleteById(comId);
         if(b){

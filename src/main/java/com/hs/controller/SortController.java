@@ -6,10 +6,7 @@ import com.hs.entity.SortVO;
 import com.hs.service.SortService;
 import com.hs.util.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -46,7 +43,8 @@ public class SortController {
     }
 
     /**
-     *   查询所有  分页                         ============已测，没问题================
+     * 查询所有  分页                         ============已测，没问题================
+     *
      * @param pageNum 第几页
      * @return
      */
@@ -55,6 +53,49 @@ public class SortController {
         PageInfo<SortVO> sortVOPageInfo = sortService.queryAll(pageNum);
         return RespBean.success(sortVOPageInfo);
 
+    }
+
+    /**
+     * 插入数据                     ============已测，没问题================
+     * @param sort
+     * @return
+     */
+    @PostMapping("/insert_one")
+    public RespBean<Integer> insertOne(Sort sort) {
+        int i = sortService.insert(sort);
+        if (i > 0) {
+            return RespBean.success(i);
+        }
+        return RespBean.faild();
+    }
+
+    /**
+     * 修改                     ============已测，没问题================
+     * @param sort
+     * @return
+     */
+    @PutMapping("/update_one")
+    public RespBean<Integer> updateOne(Sort sort) {
+        int i = sortService.update(sort);
+        if (i > 0) {
+            return RespBean.success(i);
+        }
+        return RespBean.faild();
+    }
+
+
+    /**
+     * 删除                     ============已测，没问题================
+     * @param sor_id
+     * @return
+     */
+    @DeleteMapping("/delete_one/{sor_id}")
+    public RespBean<Boolean> deleteOne(@PathVariable("sor_id") Integer sor_id) {
+        Boolean b = sortService.deleteById(sor_id);
+        if (b) {
+            return RespBean.success(b);
+        }
+        return RespBean.faild();
     }
 
 }

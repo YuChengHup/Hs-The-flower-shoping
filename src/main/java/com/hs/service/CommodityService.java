@@ -2,6 +2,7 @@ package com.hs.service;
 
 import com.github.pagehelper.PageInfo;
 import com.hs.entity.Commodity;
+import com.hs.entity.CommodityVO;
 
 /**
  * (Commodity)表服务接口
@@ -19,7 +20,7 @@ public interface CommodityService {
      * @param comId 主键
      * @return 实例对象
      */
-    Commodity queryById(Integer comId);
+    CommodityVO queryById(Integer comId);
 
 
 
@@ -28,7 +29,7 @@ public interface CommodityService {
      * 查询所有
      * @return
      */
-    PageInfo<Commodity> queryAll(Integer pageNum);
+    PageInfo<CommodityVO> queryAll(Integer pageNum,Commodity commodity);
 
     /**
      * 查询所有,根据 sizId 种类查询
@@ -36,7 +37,7 @@ public interface CommodityService {
      * @param pageNum 第几页
      * @return
      */
-    PageInfo<Commodity> queryAllBySizId(Integer sizId,Integer pageNum);
+    PageInfo<CommodityVO> queryAllBySizId(Integer sizId,Integer pageNum);
 
 
     /**

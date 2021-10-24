@@ -3,6 +3,7 @@ package com.hs.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hs.entity.Commodity;
+import com.hs.entity.CommodityVO;
 import com.hs.mapper.CommodityMapper;
 import com.hs.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class CommodityServiceImpl implements CommodityService {
      * @return 实例对象
      */
     @Override
-    public Commodity queryById(Integer comId) {
+    public CommodityVO queryById(Integer comId) {
         return commodityMapper.queryById(comId);
     }
 
@@ -41,9 +42,9 @@ public class CommodityServiceImpl implements CommodityService {
      * @return 对象列表
      */
     @Override
-    public PageInfo<Commodity> queryAll(Integer pageNum) {
+    public PageInfo<CommodityVO> queryAll(Integer pageNum,Commodity commodity) {
         PageHelper.startPage(pageNum, PAGESIZE);
-        List<Commodity> commodityList = commodityMapper.queryAll();
+        List<CommodityVO> commodityList = commodityMapper.queryAll(commodity);
         return new PageInfo<>(commodityList);
     }
 
@@ -54,7 +55,7 @@ public class CommodityServiceImpl implements CommodityService {
      * @return
      */
     @Override
-    public PageInfo<Commodity> queryAllBySizId(Integer sizId, Integer pageNum) {
+    public PageInfo<CommodityVO> queryAllBySizId(Integer sizId, Integer pageNum) {
         return null;
     }
 

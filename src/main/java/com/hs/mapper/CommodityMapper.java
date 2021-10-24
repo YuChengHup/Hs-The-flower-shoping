@@ -1,6 +1,7 @@
 package com.hs.mapper;
 
 import com.hs.entity.Commodity;
+import com.hs.entity.CommodityVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface CommodityMapper {
      * @param comId 主键
      * @return 实例对象
      */
-    Commodity queryById(Integer comId);
+    CommodityVO queryById(Integer comId);
 
 
     /**
@@ -27,7 +28,7 @@ public interface CommodityMapper {
      *
      * @return 对象列表
      */
-    List<Commodity> queryAll();
+    List<CommodityVO> queryAll(Commodity commodity);
 
 
     /**
@@ -35,7 +36,7 @@ public interface CommodityMapper {
      * @param sizId 种类编号
      * @return
      */
-    List<Commodity> queryAllBySizId(Integer[] sizId);
+    List<CommodityVO> queryAllBySizId(List<Integer> sizId);
 
 
     /**
