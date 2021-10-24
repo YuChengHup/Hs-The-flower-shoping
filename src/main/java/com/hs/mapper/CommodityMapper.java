@@ -25,10 +25,18 @@ public interface CommodityMapper {
     /**
      * 通过实体作为筛选条件查询，可以用
      *
-     * @param commodity 实例对象
      * @return 对象列表
      */
     List<Commodity> queryAll();
+
+
+    /**
+     * 查一个种类或多个
+     * @param sizId 种类编号
+     * @return
+     */
+    List<Commodity> queryAllBySizId(Integer[] sizId);
+
 
     /**
      * 新增数据，可用

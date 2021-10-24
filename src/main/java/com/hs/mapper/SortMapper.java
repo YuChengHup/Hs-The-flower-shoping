@@ -1,6 +1,7 @@
 package com.hs.mapper;
 
 import com.hs.entity.Sort;
+import com.hs.entity.SortVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,25 +20,14 @@ public interface SortMapper {
      * @param sorId 主键
      * @return 实例对象
      */
-    Sort queryById(Integer sorId);
-
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Sort> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    SortVO queryById(Integer sorId);
 
 
     /**
-     * 通过实体作为筛选条件查询
-     *
-     * @param sort 实例对象
-     * @return 对象列表
+     *  多条数据，分页
+     * @return
      */
-    List<Sort> queryAll(Sort sort);
+    List<SortVO> queryAll();
 
     /**
      * 新增数据

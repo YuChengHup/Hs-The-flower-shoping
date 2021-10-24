@@ -38,14 +38,24 @@ public class CommodityServiceImpl implements CommodityService {
      * 查询多条数据
      *
      * @param pageNum 查询起始位置
-     * @param pageSize  查询条数
      * @return 对象列表
      */
     @Override
-    public PageInfo<Commodity> queryAll(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public PageInfo<Commodity> queryAll(Integer pageNum) {
+        PageHelper.startPage(pageNum, PAGESIZE);
         List<Commodity> commodityList = commodityMapper.queryAll();
         return new PageInfo<>(commodityList);
+    }
+
+    /**
+     * 通过种类查询
+     * @param sizId 种类编号
+     * @param pageNum 第几页
+     * @return
+     */
+    @Override
+    public PageInfo<Commodity> queryAllBySizId(Integer sizId, Integer pageNum) {
+        return null;
     }
 
     /**

@@ -21,13 +21,6 @@
         where adm_id = #{admId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="BaseResultMap">
-        select
-          adm_id, adm_zh, passwd, by_sp1, by_sp2
-        from admin
-        limit #{offset}, #{limit}
-    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="admId" useGeneratedKeys="true">

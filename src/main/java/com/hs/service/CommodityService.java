@@ -11,6 +11,8 @@ import com.hs.entity.Commodity;
  */
 public interface CommodityService {
 
+
+    Integer PAGESIZE=5;   // 每页显示几个
     /**
      * 通过ID查询单条数据
      *
@@ -19,11 +21,23 @@ public interface CommodityService {
      */
     Commodity queryById(Integer comId);
 
+
+
+
     /**
      * 查询所有
      * @return
      */
-    PageInfo<Commodity> queryAll(int pageNum, int pageSize);
+    PageInfo<Commodity> queryAll(Integer pageNum);
+
+    /**
+     * 查询所有,根据 sizId 种类查询
+     * @param sizId 种类编号
+     * @param pageNum 第几页
+     * @return
+     */
+    PageInfo<Commodity> queryAllBySizId(Integer sizId,Integer pageNum);
+
 
     /**
      * 新增数据

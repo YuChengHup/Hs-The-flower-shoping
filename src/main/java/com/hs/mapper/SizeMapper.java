@@ -24,43 +24,10 @@ public interface SizeMapper {
     /**
      * 查询指定行数据
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
      * @return 对象列表
      */
-    List<Size> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Size> queryAll();
 
 
-    /**
-     * 通过实体作为筛选条件查询
-     *
-     * @param size 实例对象
-     * @return 对象列表
-     */
-    List<Size> queryAll(Size size);
-
-    /**
-     * 新增数据
-     *
-     * @param size 实例对象
-     * @return 影响行数
-     */
-    int insert(Size size);
-
-    /**
-     * 修改数据
-     *
-     * @param size 实例对象
-     * @return 影响行数
-     */
-    int update(Size size);
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param sizId 主键
-     * @return 影响行数
-     */
-    int deleteById(Integer sizId);
 
 }

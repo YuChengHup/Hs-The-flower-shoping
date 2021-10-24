@@ -37,14 +37,13 @@ public class CommodityController {
     }
 
     /**
-     * 查询所有,分页             ================已测，没问题====
+     * 查询所有,分页               ================已测，没问题====
      * @param pageNum 第几页
-     * @param pageSize 每页显示几个
      * @return
      */
-    @GetMapping("/queryall/{pageNum}/{pageSize}")
-    public RespBean<PageInfo<Commodity>> queryAll(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
-        PageInfo<Commodity> commodityPageInfo = commodityService.queryAll(pageNum, pageSize);
+    @GetMapping("/queryall/{pageNum}")
+    public RespBean<PageInfo<Commodity>> queryAll(@PathVariable("pageNum") Integer pageNum) {
+        PageInfo<Commodity> commodityPageInfo = commodityService.queryAll(pageNum);
         return RespBean.success(commodityPageInfo);
     }
 
