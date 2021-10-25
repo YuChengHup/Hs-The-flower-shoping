@@ -32,11 +32,11 @@ public interface CommodityMapper {
 
 
     /**
-     * 查一个种类或多个
+     * 查一个种类
      * @param sizId 种类编号
      * @return
      */
-    List<CommodityVO> queryAllBySizId(List<Integer> sizId);
+    List<CommodityVO> queryAllBySizId(Integer sizId);
 
 
     /**

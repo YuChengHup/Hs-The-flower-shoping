@@ -56,7 +56,20 @@ public class SortController {
     }
 
     /**
+     *
+     * @param sizId
+     * @return
+     */
+    @GetMapping("/query_by_siz_id/{sizId}")
+    public RespBean<List<SortVO>> queryBySizId(@PathVariable("sizId") Integer sizId) {
+        List<SortVO> sortVOList = sortService.queryBySizId(sizId);
+        return RespBean.success(sortVOList);
+
+    }
+
+    /**
      * 插入数据                     ============已测，没问题================
+     *
      * @param sort
      * @return
      */
@@ -71,6 +84,7 @@ public class SortController {
 
     /**
      * 修改                     ============已测，没问题================
+     *
      * @param sort
      * @return
      */
@@ -86,6 +100,7 @@ public class SortController {
 
     /**
      * 删除                     ============已测，没问题================
+     *
      * @param sor_id
      * @return
      */

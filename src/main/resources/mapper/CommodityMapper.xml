@@ -33,6 +33,15 @@
         where com_id = #{comId} and commodity.sor_id=sort.sor_id and sort.siz_id=size.siz_id
     </select>
 
+
+    <!--查询单个-->
+    <select id="queryAllBySizId" resultMap="BaseResultMap">
+select com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, gmt_create, gmt_modified, by_sp1, by_sp2,sort.sor_id,sor_name
+        from commodity,sort
+        where commodity.sor_id=sort.sor_id and commodity.sor_id in (select sor_id from sort where sort.siz_id=#{sizId})
+
+    </select>
+
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
@@ -64,10 +73,10 @@
                 and commodity.sor_id = #{sorId}
             </if>
             <if test="gmtCreate != null">
-                and gmt_create = #{gmtCreate}
+                and gmt_create >=  #{gmtCreate}
             </if>
-            <if test="gmtModified != null">
-                and gmt_modified = #{gmtModified}
+            <if test="gmtModified != null and gmtModified>=gmtCreate">
+                <![CDATA[and gmt_create <= #{gmtModified}]]>
             </if>
             <if test="bySp1 != null and bySp1 != ''">
                 and by_sp1 = #{bySp1}
