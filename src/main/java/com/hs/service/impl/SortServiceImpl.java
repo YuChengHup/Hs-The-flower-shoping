@@ -80,4 +80,10 @@ public class SortServiceImpl implements SortService {
     public boolean deleteById(Integer sorId) {
         return sortMapper.deleteById(sorId) > 0;
     }
+
+    @Override
+    public List<SortVO> queryBySizId(Integer sizId) {
+
+        return sortMapper.queryBySizId(sizId);
+    }
 }

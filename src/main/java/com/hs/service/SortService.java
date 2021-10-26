@@ -54,4 +54,11 @@ public interface SortService {
      */
     boolean deleteById(Integer sorId);
 
+    /**
+     *
+     * @param sizId 花期编号
+     * @return
+     */
+    List<SortVO> queryBySizId(Integer sizId);
+
 }

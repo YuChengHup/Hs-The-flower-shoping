@@ -53,4 +53,11 @@ public interface SortMapper {
      */
     int deleteById(Integer sorId);
 
+    /**
+     *
+     * @param sizId
+     * @return
+     */
+    List<SortVO> queryBySizId(Integer sizId);
+
 }

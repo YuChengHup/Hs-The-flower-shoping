@@ -56,7 +56,9 @@ public class CommodityServiceImpl implements CommodityService {
      */
     @Override
     public PageInfo<CommodityVO> queryAllBySizId(Integer sizId, Integer pageNum) {
-        return null;
+        PageHelper.startPage(pageNum, PAGESIZE);
+        List<CommodityVO> commodityList = commodityMapper.queryAllBySizId(sizId);
+        return new PageInfo<>(commodityList);
     }
 
     /**

@@ -7,6 +7,7 @@ import com.hs.service.CommodityService;
 import com.hs.util.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -49,12 +50,24 @@ public class CommodityController {
     }
 
     /**
+     * 根据花期查询                    ================已测，没问题=======
+     * @param pageNum 第几页
+     * @param sizId 花期分类编号
+     * @return
+     */
+    @GetMapping("/query_all_by_siz_id/{sizId}/{pageNum}")
+    public RespBean<PageInfo<CommodityVO>> queryAllBySizId(@PathVariable("pageNum") Integer pageNum,@PathVariable("sizId") Integer sizId) {
+        PageInfo<CommodityVO> commodityPageInfo = commodityService.queryAllBySizId(sizId,pageNum);
+        return RespBean.success(commodityPageInfo);
+    }
+
+    /**
      * 添加数据                   ================已测，没问题=======
      * @param commodity 实例对象
      * @return 实例对象
      */
     @PostMapping("/insert_one")
-    public RespBean<Commodity> insertOne(Commodity commodity) {
+    public RespBean<Commodity> insertOne(Commodity commodity,@RequestParam("phoUrl") MultipartFile[] multipartFiles) {
         commodity.setGmtCreate(LocalDateTime.now());
         commodity.setGmtModified(LocalDateTime.now());
         int i = commodityService.insert(commodity);
