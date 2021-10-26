@@ -128,7 +128,7 @@ public class CommodityController {
     }
 
     /**
-     * 修改数据                    ================已测，没问题，restful====
+     * 修改数据                    ================已测，没问题====
      *
      * @param commodity 修改的对象
      * @return 修改后的实例对象
