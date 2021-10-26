@@ -1,12 +1,14 @@
 package com.hs.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Sort;
+import com.hs.entity.SortVO;
 import com.hs.mapper.SortMapper;
 import com.hs.service.SortService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -28,20 +30,20 @@ public class SortServiceImpl implements SortService {
      * @return 实例对象
      */
     @Override
-    public Sort queryById(Integer sorId) {
-        return this.sortMapper.queryById(sorId);
+    public SortVO queryById(Integer sorId) {
+        return sortMapper.queryById(sorId);
     }
 
     /**
-     * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
+     * @param pageNum 第几页
+     * @return 多条数据
      */
     @Override
-    public List<Sort> queryAllByLimit(int offset, int limit) {
-        return this.sortMapper.queryAllByLimit(offset, limit);
+    public PageInfo<SortVO> queryAll(Integer pageNum) {
+        PageHelper.startPage(pageNum, PAGESIZE);
+        List<SortVO> sortVOList = sortMapper.queryAll();
+        return new PageInfo<>(sortVOList);
     }
 
     /**
@@ -51,9 +53,9 @@ public class SortServiceImpl implements SortService {
      * @return 实例对象
      */
     @Override
-    public Sort insert(Sort sort) {
-        this.sortMapper.insert(sort);
-        return sort;
+    public int insert(Sort sort) {
+        return sortMapper.insert(sort);
+
     }
 
     /**
@@ -63,9 +65,9 @@ public class SortServiceImpl implements SortService {
      * @return 实例对象
      */
     @Override
-    public Sort update(Sort sort) {
-        this.sortMapper.update(sort);
-        return this.queryById(sort.getSorId());
+    public int update(Sort sort) {
+        return sortMapper.update(sort);
+
     }
 
     /**
@@ -76,6 +78,12 @@ public class SortServiceImpl implements SortService {
      */
     @Override
     public boolean deleteById(Integer sorId) {
-        return this.sortMapper.deleteById(sorId) > 0;
+        return sortMapper.deleteById(sorId) > 0;
+    }
+
+    @Override
+    public List<SortVO> queryBySizId(Integer sizId) {
+
+        return sortMapper.queryBySizId(sizId);
     }
 }

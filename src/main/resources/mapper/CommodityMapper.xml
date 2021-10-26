@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hs.mapper.CommodityMapper">
 
-    <resultMap id="BaseResultMap" type="com.hs.entity.Commodity">
+    <resultMap id="BaseResultMap" type="CommodityVO">
         <!--@Table commodity-->
         <result property="comId" column="com_id" jdbcType="INTEGER"/>
         <result property="comName" column="com_name" jdbcType="VARCHAR"/>
@@ -11,32 +11,57 @@
         <result property="comNum" column="com_num" jdbcType="INTEGER"/>
         <result property="comDescription" column="com_description" jdbcType="VARCHAR"/>
         <result property="comVolume" column="com_volume" jdbcType="INTEGER"/>
-        <result property="sorId" column="sor_id" jdbcType="INTEGER"/>
         <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
         <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
         <result property="bySp1" column="by_sp1" jdbcType="VARCHAR"/>
         <result property="bySp2" column="by_sp2" jdbcType="VARCHAR"/>
+        <association property="sortVO" column="sor_id" javaType="SortVO">
+            <id property="sorId" column="sor_id"/>
+            <result property="sorName" column="sor_name"/>
+            <association property="size" column="siz_id" javaType="Size">
+                <id property="sizId" column="siz_id"/>
+                <result property="sizName" column="siz_name"/>
+            </association>
+        </association>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, sor_id, gmt_create, gmt_modified, by_sp1, by_sp2
-        from commodity
-        where com_id = #{comId}
+          com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, gmt_create, gmt_modified, by_sp1, by_sp2,commodity.sor_id,sor_name,size.siz_id,siz_name
+        from commodity,sort,size
+        where com_id = #{comId} and commodity.sor_id=sort.sor_id and sort.siz_id=size.siz_id
     </select>
+
+
+    <!--查询单个-->
+    <select id="queryAllBySizId" resultMap="BaseResultMap">
+        select com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, gmt_create, gmt_modified, by_sp1, by_sp2,sort.sor_id,sor_name
+        from commodity,sort
+        where commodity.sor_id=sort.sor_id and commodity.sor_id in (select sor_id from sort where sort.siz_id=#{sizId})
+
+    </select>
+
+    <select id="idUnique" resultType="java.lang.Long">
+        select count(*)
+        from commodity
+        where com_id=#{comId}
+
+    </select>
+
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, sor_id, gmt_create, gmt_modified, by_sp1, by_sp2
-        from commodity
+        com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, gmt_create, gmt_modified,
+        by_sp1, by_sp2,commodity.sor_id,sor_name,size.siz_id,siz_name
+        from commodity,sort,size
         <where>
             <if test="comId != null">
                 and com_id = #{comId}
             </if>
             <if test="comName != null and comName != ''">
-                and com_name = #{comName}
+                and com_name like concat('%',#{comName},'%')
             </if>
             <if test="comPurchPrice != null">
                 and com_purch_price = #{comPurchPrice}
@@ -54,13 +79,13 @@
                 and com_volume = #{comVolume}
             </if>
             <if test="sorId != null">
-                and sor_id = #{sorId}
+                and commodity.sor_id = #{sorId}
             </if>
             <if test="gmtCreate != null">
-                and gmt_create = #{gmtCreate}
+                and gmt_create >= #{gmtCreate}
             </if>
-            <if test="gmtModified != null">
-                and gmt_modified = #{gmtModified}
+            <if test="gmtModified != null and gmtModified>=gmtCreate">
+                <![CDATA[and gmt_create <= #{gmtModified}]]>
             </if>
             <if test="bySp1 != null and bySp1 != ''">
                 and by_sp1 = #{bySp1}
@@ -68,13 +93,14 @@
             <if test="bySp2 != null and bySp2 != ''">
                 and by_sp2 = #{bySp2}
             </if>
+            and commodity.sor_id=sort.sor_id and sort.siz_id=size.siz_id
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="comId" useGeneratedKeys="true">
-        insert into commodity(com_name, com_purch_price, com_price, com_num, com_description, com_volume, sor_id, gmt_create, gmt_modified, by_sp1, by_sp2)
-        values (#{comName}, #{comPurchPrice}, #{comPrice}, #{comNum}, #{comDescription}, #{comVolume}, #{sorId}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
+        insert into commodity(com_id,com_name, com_purch_price, com_price, com_num, com_description, com_volume, sor_id, gmt_create, gmt_modified, by_sp1, by_sp2)
+        values (#{comId},#{comName}, #{comPurchPrice}, #{comPrice}, #{comNum}, #{comDescription}, #{comVolume}, #{sorId}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
     </insert>
 
     <!--通过主键修改数据-->

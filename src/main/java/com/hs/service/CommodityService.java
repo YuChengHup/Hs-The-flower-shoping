@@ -2,6 +2,7 @@ package com.hs.service;
 
 import com.github.pagehelper.PageInfo;
 import com.hs.entity.Commodity;
+import com.hs.entity.CommodityVO;
 
 /**
  * (Commodity)表服务接口
@@ -11,19 +12,33 @@ import com.hs.entity.Commodity;
  */
 public interface CommodityService {
 
+
+    Integer PAGESIZE=10;   // 每页显示几个
     /**
      * 通过ID查询单条数据
      *
      * @param comId 主键
      * @return 实例对象
      */
-    Commodity queryById(Integer comId);
+    CommodityVO queryById(Integer comId);
+
+
+
 
     /**
      * 查询所有
      * @return
      */
-    PageInfo<Commodity> queryAll(int pageNum, int pageSize);
+    PageInfo<CommodityVO> queryAll(Integer pageNum,Commodity commodity);
+
+    /**
+     * 查询所有,根据 sizId 种类查询
+     * @param sizId 种类编号
+     * @param pageNum 第几页
+     * @return
+     */
+    PageInfo<CommodityVO> queryAllBySizId(Integer sizId,Integer pageNum);
+
 
     /**
      * 新增数据
@@ -48,5 +63,12 @@ public interface CommodityService {
      * @return 是否成功
      */
     boolean deleteById(Integer comId);
+
+    /**
+     * 判断id唯一
+     * @param comId
+     * @return
+     */
+    boolean idUnique(Integer comId);
 
 }

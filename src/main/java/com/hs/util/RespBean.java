@@ -36,26 +36,27 @@ public class RespBean<T> {
         this.data = data;
     }
 
-    public static <T> RespBean <T> success(){
-        return new RespBean <T>(CodeEnum.SUCCESS);
+    public static <T> RespBean<T> success() {
+        return new RespBean<T>(CodeEnum.SUCCESS);
     }
 
-    public static <T> RespBean <T> success(T data){
-        return new RespBean <T>(CodeEnum.SUCCESS,data);
+    public static <T> RespBean<T> success(T data) {
+        return new RespBean<T>(CodeEnum.SUCCESS, data);
     }
 
     //参数格式不正确
-    public static <T> RespBean <T> badRequest(){
-        return new RespBean <T>(CodeEnum.BAD_REQUEST);
+    public static <T> RespBean<T> badRequest() {
+        return new RespBean<T>(CodeEnum.BAD_REQUEST);
     }
 
     //失败
-    public static <T> RespBean <T> faild(){
-        return new RespBean <T>(CodeEnum.FAILD);
+    public static <T> RespBean<T> faild() {
+        return new RespBean<T>(CodeEnum.FAILD);
     }
+
     //失败
-    public static <T> RespBean <T> username_exists(){
-        return new RespBean <T>(CodeEnum.USERNAME_EXISTS);
+    public static <T> RespBean<T> username_exists() {
+        return new RespBean<T>(CodeEnum.USERNAME_EXISTS);
     }
 
     public Integer getCode() {
@@ -81,5 +82,6 @@ public class RespBean<T> {
     public void setData(T data) {
         this.data = data;
     }
+
 
 }

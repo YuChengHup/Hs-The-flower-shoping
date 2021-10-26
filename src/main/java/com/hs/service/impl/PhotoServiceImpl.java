@@ -21,61 +21,45 @@ public class PhotoServiceImpl implements PhotoService {
     @Autowired
     private PhotoMapper photoMapper;
 
+
     /**
-     * 通过ID查询单条数据
      *
-     * @param phoId 主键
-     * @return 实例对象
+     * @param photo
+     * @return
      */
     @Override
-    public Photo queryById(Integer phoId) {
-        return this.photoMapper.queryById(phoId);
+    public List<Photo> queryByPhoto(Photo photo) {
+        return photoMapper.queryByPhoto(photo);
     }
 
     /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    @Override
-    public List<Photo> queryAllByLimit(int offset, int limit) {
-        return this.photoMapper.queryAllByLimit(offset, limit);
-    }
-
-    /**
-     * 新增数据
      *
      * @param photo 实例对象
-     * @return 实例对象
+     * @return
      */
     @Override
-    public Photo insert(Photo photo) {
-        this.photoMapper.insert(photo);
-        return photo;
+    public int insert(Photo photo) {
+        return photoMapper.insert(photo);
     }
 
     /**
-     * 修改数据
      *
      * @param photo 实例对象
-     * @return 实例对象
+     * @return
      */
     @Override
-    public Photo update(Photo photo) {
-        this.photoMapper.update(photo);
-        return this.queryById(photo.getPhoId());
+    public int update(Photo photo) {
+
+        return photoMapper.update(photo);
     }
 
     /**
-     * 通过主键删除数据
      *
-     * @param phoId 主键
-     * @return 是否成功
+     * @param photo
+     * @return
      */
     @Override
-    public boolean deleteById(Integer phoId) {
-        return this.photoMapper.deleteById(phoId) > 0;
+    public boolean deleteById(Photo photo) {
+        return photoMapper.deleteById(photo) > 0;
     }
 }

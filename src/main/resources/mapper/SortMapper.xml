@@ -2,45 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hs.mapper.SortMapper">
 
-    <resultMap id="BaseResultMap" type="com.hs.entity.Sort">
+    <resultMap id="BaseResultMap" type="SortVO">
         <!--@Table sort-->
         <result property="sorId" column="sor_id" jdbcType="INTEGER"/>
         <result property="sorName" column="sor_name" jdbcType="VARCHAR"/>
-        <result property="sizId" column="siz_id" jdbcType="INTEGER"/>
+        <association property="size" column="siz_id" javaType="Size">
+            <id property="sizId" column="siz_id"/>
+            <result property="sizName" column="siz_name"/>
+        </association>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          sor_id, sor_name, siz_id
-        from sort
-        where sor_id = #{sorId}
+          sor_id, sor_name, sort.siz_id,siz_name
+        from sort,size
+        where sor_id = #{sorId} and sort.siz_id=size.siz_id
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="BaseResultMap">
+    <!--查询单个-->
+    <select id="queryBySizId" resultMap="BaseResultMap">
         select
-          sor_id, sor_name, siz_id
-        from sort
-        limit #{offset}, #{limit}
+          sor_id, sor_name, sort.siz_id,siz_name
+        from sort,size
+        where sort.siz_id=#{sizId} and sort.siz_id=size.siz_id
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          sor_id, sor_name, siz_id
-        from sort
-        <where>
-            <if test="sorId != null">
-                and sor_id = #{sorId}
-            </if>
-            <if test="sorName != null and sorName != ''">
-                and sor_name = #{sorName}
-            </if>
-            <if test="sizId != null">
-                and siz_id = #{sizId}
-            </if>
-        </where>
+          sor_id, sor_name, sort.siz_id,siz_name
+        from sort,size
+        where  sort.siz_id=size.siz_id
     </select>
 
     <!--新增所有列-->

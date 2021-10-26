@@ -3,6 +3,7 @@ package com.hs.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hs.entity.Commodity;
+import com.hs.entity.CommodityVO;
 import com.hs.mapper.CommodityMapper;
 import com.hs.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class CommodityServiceImpl implements CommodityService {
      * @return 实例对象
      */
     @Override
-    public Commodity queryById(Integer comId) {
+    public CommodityVO queryById(Integer comId) {
         return commodityMapper.queryById(comId);
     }
 
@@ -38,13 +39,26 @@ public class CommodityServiceImpl implements CommodityService {
      * 查询多条数据
      *
      * @param pageNum 查询起始位置
-     * @param pageSize  查询条数
      * @return 对象列表
      */
     @Override
-    public PageInfo<Commodity> queryAll(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<Commodity> commodityList = commodityMapper.queryAll();
+    public PageInfo<CommodityVO> queryAll(Integer pageNum, Commodity commodity) {
+        PageHelper.startPage(pageNum, PAGESIZE);
+        List<CommodityVO> commodityList = commodityMapper.queryAll(commodity);
+        return new PageInfo<>(commodityList);
+    }
+
+    /**
+     * 通过种类查询
+     *
+     * @param sizId   种类编号
+     * @param pageNum 第几页
+     * @return
+     */
+    @Override
+    public PageInfo<CommodityVO> queryAllBySizId(Integer sizId, Integer pageNum) {
+        PageHelper.startPage(pageNum, PAGESIZE);
+        List<CommodityVO> commodityList = commodityMapper.queryAllBySizId(sizId);
         return new PageInfo<>(commodityList);
     }
 
@@ -80,5 +94,11 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public boolean deleteById(Integer comId) {
         return commodityMapper.deleteById(comId) > 0;
+    }
+
+    @Override
+    public boolean idUnique(Integer comId) {
+
+        return commodityMapper.idUnique(comId)<=0;
     }
 }
