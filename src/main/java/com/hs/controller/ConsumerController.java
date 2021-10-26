@@ -1,5 +1,6 @@
 package com.hs.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Consumer;
 import com.hs.service.ConsumerService;
 import com.hs.util.RespBean;
@@ -46,8 +47,8 @@ public class ConsumerController {
 
 
     @RequestMapping("/findAll")
-    public RespBean<List<Consumer>> findAll(){
-        return RespBean.success(consumerService.findAll());
+    public RespBean<PageInfo<Consumer>> findAll(int pageNum,int pageSize){
+        return RespBean.success(consumerService.findAll(pageNum,pageSize));
     }
 
     @RequestMapping("/findDeleteAll")

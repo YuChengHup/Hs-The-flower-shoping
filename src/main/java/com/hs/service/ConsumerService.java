@@ -1,5 +1,6 @@
 package com.hs.service;
 
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Consumer;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public interface ConsumerService {
      * 查询所有客户信息
      * @return
      */
-    List<Consumer> findAll();
+    PageInfo<Consumer> findAll(int pageNum, int pageSize);
 
 
     /**

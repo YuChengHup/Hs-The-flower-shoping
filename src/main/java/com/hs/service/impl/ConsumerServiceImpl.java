@@ -1,5 +1,7 @@
 package com.hs.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Consumer;
 import com.hs.mapper.ConsumerMapper;
 import com.hs.service.ConsumerService;
@@ -43,10 +45,17 @@ public class ConsumerServiceImpl implements ConsumerService {
      * @return
      */
     @Override
-    public List<Consumer> findAll() {
-        return this.consumerMapper.findAll();
-    }
+    public PageInfo<Consumer> findAll(int pageNum, int pageSize) {
+//        设置pageHelper
+        PageHelper.startPage(pageNum,pageSize);
 
+//        查询数据
+        List<Consumer> all = consumerMapper.findAll();
+
+//        封装分页结果
+        PageInfo<Consumer> pageInfo=new PageInfo<>(all);
+        return pageInfo;
+    }
 
     /**
      * 查询所有删除客户信息
