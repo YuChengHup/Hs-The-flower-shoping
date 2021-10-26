@@ -15,10 +15,33 @@ public interface ConsumerService {
     /**
      * 通过ID查询单条数据
      *
-     * @param conId 主键
+     * @param consumer
      * @return 实例对象
      */
-    Consumer queryById(Integer conId);
+    Consumer queryById(Consumer consumer);
+
+    /**
+     * 通过id查询客户信息
+     */
+    Consumer findById(Consumer consumer);
+
+
+    /**
+     * 查询所有客户信息
+     * @return
+     */
+    List<Consumer> findAll();
+
+
+    /**
+     * 查询已删除客户信息
+     */
+    List<Consumer> findDeleteAll();
+
+    /**
+     * 添加客户信息
+     */
+    int addConsumer(Consumer consumer);
 
     /**
      * 查询多条数据
@@ -28,6 +51,12 @@ public interface ConsumerService {
      * @return 对象列表
      */
     List<Consumer> queryAllByLimit(int offset, int limit);
+
+
+    /**
+     * 通过用户名查询客户信息
+     */
+    List<Consumer> queryConsumerByUsername(Consumer consumer);
 
     /**
      * 新增数据
@@ -43,14 +72,15 @@ public interface ConsumerService {
      * @param consumer 实例对象
      * @return 实例对象
      */
-    Consumer update(Consumer consumer);
+    int update(Consumer consumer);
 
     /**
      * 通过主键删除数据
      *
-     * @param conId 主键
+     * @param consumer 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer conId);
+    int deleteById(Consumer consumer);
+
 
 }

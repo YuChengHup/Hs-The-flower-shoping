@@ -16,10 +16,10 @@ public interface ConsumerMapper {
     /**
      * 通过ID查询单条数据
      *
-     * @param conId 主键
+     * @param  consumer
      * @return 实例对象
      */
-    Consumer queryById(Integer conId);
+    Consumer queryById(Consumer consumer);
 
     /**
      * 查询指定行数据
@@ -58,9 +58,33 @@ public interface ConsumerMapper {
     /**
      * 通过主键删除数据
      *
-     * @param conId 主键
+     * @param  consumer
      * @return 影响行数
      */
-    int deleteById(Integer conId);
+    int deleteById(Consumer consumer);
 
+
+    /**
+     * 查询所有会员信息
+     * @return
+     */
+    List<Consumer> findAll();
+
+    /**
+     * 查询已删除的会员信息
+     */
+
+    List<Consumer> findDeleteAll();
+
+    /**
+     * 通过id查找客户信息
+     * @param consumer
+     * @return
+     */
+    Consumer findById(Consumer consumer);
+
+    /**
+     * 添加会员
+     */
+    int addConsumer(Consumer consumer);
 }
