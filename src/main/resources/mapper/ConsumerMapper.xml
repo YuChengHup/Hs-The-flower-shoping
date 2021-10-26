@@ -20,11 +20,26 @@
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="BaseResultMap">
+    <select id="queryById" parameterType="Consumer" resultMap="BaseResultMap">
         select
         con_id, username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2
         from consumer
         where con_id = #{conId}
+    </select>
+
+    <!--    查询所有会员数据-->
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from consumer where con_status=0
+    </select>
+
+<!--    查询所有已删除会员数据-->
+    <select id="findDeleteAll" resultMap="BaseResultMap">
+        select * from consumer where con_status=1
+    </select>
+
+<!--    通过ID查询客户信息-->
+    <select id="findById" parameterType="Consumer" resultMap="BaseResultMap">
+        select * from consumer where con_Id=#{conId}
     </select>
 
     <!--查询指定行数据-->
@@ -133,9 +148,16 @@
         where con_id = #{conId}
     </update>
 
+
+<!--    增加会员信息-->
+    <insert id="addConsumer" parameterType="Consumer">
+        insert into consumer values(null,#{username}, #{passwd}, #{conName}, #{conSex}, #{conTel}, #{conEmail}, #{conPhoto}, #{conStatus}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2});
+    </insert>
+
     <!--通过主键删除-->
-    <delete id="deleteById">
+    <delete id="deleteById" parameterType="Consumer">
         delete from consumer where con_id = #{conId}
     </delete>
+
 
 </mapper>

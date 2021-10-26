@@ -1,5 +1,7 @@
 package com.hs.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Consumer;
 import com.hs.mapper.ConsumerMapper;
 import com.hs.service.ConsumerService;
@@ -24,12 +26,54 @@ public class ConsumerServiceImpl implements ConsumerService {
     /**
      * 通过ID查询单条数据
      *
-     * @param conId 主键
+     * @param consumer
      * @return 实例对象
      */
     @Override
-    public Consumer queryById(Integer conId) {
-        return this.consumerMapper.queryById(conId);
+    public Consumer queryById(Consumer consumer) {
+        return this.consumerMapper.queryById(consumer);
+    }
+
+
+    @Override
+    public Consumer findById(Consumer consumer) {
+        return consumerMapper.findById(consumer);
+    }
+
+    /**
+     * 查询所有客户信息11
+     * @return
+     */
+    @Override
+    public PageInfo<Consumer> findAll(int pageNum, int pageSize) {
+//        设置pageHelper
+        PageHelper.startPage(pageNum,pageSize);
+
+//        查询数据
+        List<Consumer> all = consumerMapper.findAll();
+
+//        封装分页结果
+        PageInfo<Consumer> pageInfo=new PageInfo<>(all);
+        return pageInfo;
+    }
+
+    /**
+     * 查询所有删除客户信息
+     * @return
+     */
+    @Override
+    public List<Consumer> findDeleteAll() {
+        return this.consumerMapper.findDeleteAll();
+    }
+
+    /**
+     * 添加会员信息11
+     * @param consumer
+     * @return
+     */
+    @Override
+    public int addConsumer(Consumer consumer) {
+        return consumerMapper.addConsumer(consumer);
     }
 
     /**
@@ -42,6 +86,18 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Override
     public List<Consumer> queryAllByLimit(int offset, int limit) {
         return this.consumerMapper.queryAllByLimit(offset, limit);
+    }
+
+
+    /**
+     * 通过条件查询客户信息
+     * @param consumer
+     * @return
+     */
+    @Override
+    public List<Consumer> queryConsumerByUsername(Consumer consumer) {
+        List<Consumer> consumers = consumerMapper.queryAll(consumer);
+        return consumers;
     }
 
     /**
@@ -63,19 +119,18 @@ public class ConsumerServiceImpl implements ConsumerService {
      * @return 实例对象
      */
     @Override
-    public Consumer update(Consumer consumer) {
-        this.consumerMapper.update(consumer);
-        return this.queryById(consumer.getConId());
+    public int update(Consumer consumer) {
+        return this.consumerMapper.update(consumer);
     }
 
     /**
      * 通过主键删除数据
      *
-     * @param conId 主键
+     * @param consumer
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer conId) {
-        return this.consumerMapper.deleteById(conId) > 0;
+    public int deleteById(Consumer consumer) {
+        return this.consumerMapper.deleteById(consumer);
     }
 }
