@@ -52,8 +52,17 @@ public class ConsumerController {
     }
 
     @RequestMapping("/findDeleteAll")
-    public RespBean<List<Consumer>> findDeleteAll(){
-        return RespBean.success(consumerService.findDeleteAll());
+    public RespBean<PageInfo<Consumer>> findDeleteAll(int pageNum,int pageSize){
+        return RespBean.success(consumerService.findDeleteAll(pageNum,pageSize));
+    }
+
+
+    /**
+     * 多条件模糊查询
+     */
+    @RequestMapping("/queryAll")
+    public RespBean<PageInfo<Consumer>> queryAll(int pageNum,int pageSize,Consumer consumer){
+        return RespBean.success(consumerService.queryAll(pageNum,pageSize,consumer));
     }
 
     @RequestMapping("/addCustomer")

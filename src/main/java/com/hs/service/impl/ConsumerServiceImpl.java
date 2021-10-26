@@ -62,8 +62,30 @@ public class ConsumerServiceImpl implements ConsumerService {
      * @return
      */
     @Override
-    public List<Consumer> findDeleteAll() {
-        return this.consumerMapper.findDeleteAll();
+    public PageInfo<Consumer> findDeleteAll(int pageNum, int pageSize) {
+//        设置pageHelper
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<Consumer> deleteAll = consumerMapper.findDeleteAll();
+
+        PageInfo<Consumer> pageInfo=new PageInfo<>(deleteAll);
+        return pageInfo;
+    }
+
+
+    /**
+     * 多条件模糊查询
+     * @param
+     * @return
+     */
+    @Override
+    public PageInfo<Consumer> queryAll(int pageNum,int pageSize,Consumer consumer) {
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<Consumer> consumers = consumerMapper.queryAll(consumer);
+
+        PageInfo<Consumer> pageInfo=new PageInfo<>(consumers);
+        return pageInfo;
     }
 
     /**
@@ -133,4 +155,5 @@ public class ConsumerServiceImpl implements ConsumerService {
     public int deleteById(Consumer consumer) {
         return this.consumerMapper.deleteById(consumer);
     }
+
 }

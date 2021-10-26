@@ -66,7 +66,7 @@
                 and passwd = #{passwd}
             </if>
             <if test="conName != null and conName != ''">
-                and con_name = #{conName}
+                and con_name like concat('%',#{conName},'%')
             </if>
             <if test="conSex != null and conSex != ''">
                 and con_sex = #{conSex}
@@ -84,10 +84,10 @@
                 and con_status = #{conStatus}
             </if>
             <if test="gmtCreate != null">
-                and gmt_create = #{gmtCreate}
+                and gmt_create >= #{gmtCreate}
             </if>
-            <if test="gmtModified != null">
-                and gmt_modified = #{gmtModified}
+            <if test="gmtModified != null and gmtModified>=gmtCreate">
+                <![CDATA[and gmt_create <= #{gmtModified}]]>
             </if>
             <if test="bySp1 != null and bySp1 != ''">
                 and by_sp1 = #{bySp1}

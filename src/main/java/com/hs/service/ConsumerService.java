@@ -37,7 +37,15 @@ public interface ConsumerService {
     /**
      * 查询已删除客户信息
      */
-    List<Consumer> findDeleteAll();
+    PageInfo<Consumer> findDeleteAll(int pageNum,int pageSize);
+
+
+    /**
+     * 模糊查询，多条件查询
+     * @param consumer
+     * @return
+     */
+    PageInfo<Consumer> queryAll(int pageNum,int pageSize,Consumer consumer);
 
     /**
      * 添加客户信息
