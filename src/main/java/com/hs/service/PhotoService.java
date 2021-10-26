@@ -12,22 +12,15 @@ import java.util.List;
  */
 public interface PhotoService {
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param phoId 主键
-     * @return 实例对象
-     */
-    Photo queryById(Integer phoId);
+
 
     /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
+     * 根据 商品编号 或 图片编号 查询
+     * @param photo
+     * @return
      */
-    List<Photo> queryAllByLimit(int offset, int limit);
+    List<Photo> queryByPhoto(Photo photo);
+
 
     /**
      * 新增数据
@@ -35,7 +28,7 @@ public interface PhotoService {
      * @param photo 实例对象
      * @return 实例对象
      */
-    Photo insert(Photo photo);
+    int insert(Photo photo);
 
     /**
      * 修改数据
@@ -43,14 +36,13 @@ public interface PhotoService {
      * @param photo 实例对象
      * @return 实例对象
      */
-    Photo update(Photo photo);
+    int update(Photo photo);
 
     /**
-     * 通过主键删除数据
      *
-     * @param phoId 主键
-     * @return 是否成功
+     * @param photo
+     * @return
      */
-    boolean deleteById(Integer phoId);
+    boolean deleteById(Photo photo);
 
 }

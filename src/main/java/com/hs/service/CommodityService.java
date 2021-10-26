@@ -64,4 +64,11 @@ public interface CommodityService {
      */
     boolean deleteById(Integer comId);
 
+    /**
+     * 判断id唯一
+     * @param comId
+     * @return
+     */
+    boolean idUnique(Integer comId);
+
 }

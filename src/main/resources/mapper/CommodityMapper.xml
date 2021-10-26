@@ -15,7 +15,7 @@
         <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
         <result property="bySp1" column="by_sp1" jdbcType="VARCHAR"/>
         <result property="bySp2" column="by_sp2" jdbcType="VARCHAR"/>
-        <association property="sortVO" column="sor_id" javaType="SortVO" >
+        <association property="sortVO" column="sor_id" javaType="SortVO">
             <id property="sorId" column="sor_id"/>
             <result property="sorName" column="sor_name"/>
             <association property="size" column="siz_id" javaType="Size">
@@ -36,16 +36,25 @@
 
     <!--查询单个-->
     <select id="queryAllBySizId" resultMap="BaseResultMap">
-select com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, gmt_create, gmt_modified, by_sp1, by_sp2,sort.sor_id,sor_name
+        select com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, gmt_create, gmt_modified, by_sp1, by_sp2,sort.sor_id,sor_name
         from commodity,sort
         where commodity.sor_id=sort.sor_id and commodity.sor_id in (select sor_id from sort where sort.siz_id=#{sizId})
 
     </select>
 
+    <select id="idUnique" resultType="java.lang.Long">
+        select count(*)
+        from commodity
+        where com_id=#{comId}
+
+    </select>
+
+
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, gmt_create, gmt_modified, by_sp1, by_sp2,commodity.sor_id,sor_name,size.siz_id,siz_name
+        com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, gmt_create, gmt_modified,
+        by_sp1, by_sp2,commodity.sor_id,sor_name,size.siz_id,siz_name
         from commodity,sort,size
         <where>
             <if test="comId != null">
@@ -73,7 +82,7 @@ select com_id, com_name, com_purch_price, com_price, com_num, com_description, c
                 and commodity.sor_id = #{sorId}
             </if>
             <if test="gmtCreate != null">
-                and gmt_create >=  #{gmtCreate}
+                and gmt_create >= #{gmtCreate}
             </if>
             <if test="gmtModified != null and gmtModified>=gmtCreate">
                 <![CDATA[and gmt_create <= #{gmtModified}]]>
@@ -90,8 +99,8 @@ select com_id, com_name, com_purch_price, com_price, com_num, com_description, c
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="comId" useGeneratedKeys="true">
-        insert into commodity(com_name, com_purch_price, com_price, com_num, com_description, com_volume, sor_id, gmt_create, gmt_modified, by_sp1, by_sp2)
-        values (#{comName}, #{comPurchPrice}, #{comPrice}, #{comNum}, #{comDescription}, #{comVolume}, #{sorId}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
+        insert into commodity(com_id,com_name, com_purch_price, com_price, com_num, com_description, com_volume, sor_id, gmt_create, gmt_modified, by_sp1, by_sp2)
+        values (#{comId},#{comName}, #{comPurchPrice}, #{comPrice}, #{comNum}, #{comDescription}, #{comVolume}, #{sorId}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
     </insert>
 
     <!--通过主键修改数据-->

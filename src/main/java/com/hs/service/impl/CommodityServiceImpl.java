@@ -42,7 +42,7 @@ public class CommodityServiceImpl implements CommodityService {
      * @return 对象列表
      */
     @Override
-    public PageInfo<CommodityVO> queryAll(Integer pageNum,Commodity commodity) {
+    public PageInfo<CommodityVO> queryAll(Integer pageNum, Commodity commodity) {
         PageHelper.startPage(pageNum, PAGESIZE);
         List<CommodityVO> commodityList = commodityMapper.queryAll(commodity);
         return new PageInfo<>(commodityList);
@@ -50,7 +50,8 @@ public class CommodityServiceImpl implements CommodityService {
 
     /**
      * 通过种类查询
-     * @param sizId 种类编号
+     *
+     * @param sizId   种类编号
      * @param pageNum 第几页
      * @return
      */
@@ -93,5 +94,11 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public boolean deleteById(Integer comId) {
         return commodityMapper.deleteById(comId) > 0;
+    }
+
+    @Override
+    public boolean idUnique(Integer comId) {
+
+        return commodityMapper.idUnique(comId)<=0;
     }
 }

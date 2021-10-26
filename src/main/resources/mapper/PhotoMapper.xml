@@ -13,47 +13,22 @@
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="BaseResultMap">
+    <select id="queryByPhoto" resultMap="BaseResultMap">
         select
-          pho_id, pho_url, com_id, pho_default, by_sp1, by_sp2
-        from photo
-        where pho_id = #{phoId}
-    </select>
-
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="BaseResultMap">
-        select
-          pho_id, pho_url, com_id, pho_default, by_sp1, by_sp2
-        from photo
-        limit #{offset}, #{limit}
-    </select>
-
-    <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="BaseResultMap">
-        select
-          pho_id, pho_url, com_id, pho_default, by_sp1, by_sp2
+        pho_id, pho_url, com_id, pho_default, by_sp1, by_sp2
         from photo
         <where>
             <if test="phoId != null">
                 and pho_id = #{phoId}
             </if>
-            <if test="phoUrl != null and phoUrl != ''">
-                and pho_url = #{phoUrl}
-            </if>
             <if test="comId != null">
                 and com_id = #{comId}
             </if>
-            <if test="phoDefault != null">
-                and pho_default = #{phoDefault}
-            </if>
-            <if test="bySp1 != null and bySp1 != ''">
-                and by_sp1 = #{bySp1}
-            </if>
-            <if test="bySp2 != null and bySp2 != ''">
-                and by_sp2 = #{bySp2}
-            </if>
         </where>
     </select>
+
+
+
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="phoId" useGeneratedKeys="true">
@@ -86,7 +61,15 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from photo where pho_id = #{phoId}
+        delete from photo
+        <where>
+        <if test="phoId != null">
+            and pho_id = #{phoId}
+        </if>
+        <if test="comId != null">
+            and com_id = #{comId}
+        </if>
+    </where>
     </delete>
 
 </mapper>

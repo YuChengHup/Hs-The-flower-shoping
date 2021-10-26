@@ -63,4 +63,11 @@ public interface CommodityMapper {
      */
     int deleteById(Integer comId);
 
+    /**
+     * 判断id唯一
+     * @param comId
+     * @return
+     */
+    Long idUnique(Integer comId);
+
 }

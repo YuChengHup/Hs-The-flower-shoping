@@ -3,14 +3,21 @@ package com.hs.controller;
 import com.github.pagehelper.PageInfo;
 import com.hs.entity.Commodity;
 import com.hs.entity.CommodityVO;
+import com.hs.entity.Photo;
 import com.hs.service.CommodityService;
+import com.hs.service.PhotoService;
 import com.hs.util.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * (Commodity)表控制层
@@ -27,6 +34,10 @@ public class CommodityController {
     @Autowired
     private CommodityService commodityService;
 
+
+    @Autowired
+    private PhotoService photoService;
+
     /**
      * 通过主键查询单条数据        ================已测，没问题====
      *
@@ -34,44 +45,83 @@ public class CommodityController {
      * @return 单条数据
      */
     @GetMapping("/select_one/{comId}")
-    public CommodityVO selectOne(@PathVariable("comId") Integer comId) {
-        return commodityService.queryById(comId);
+    public RespBean<CommodityVO> selectOne(@PathVariable("comId") Integer comId) {
+        CommodityVO commodityVO = commodityService.queryById(comId);
+        return RespBean.success(commodityVO);
+    }
+
+    @GetMapping("/id_unique/{comId}")
+    public RespBean<Boolean> idUnique(@PathVariable("comId") Integer comId) {
+        boolean b = commodityService.idUnique(comId);
+        return RespBean.success(b);
     }
 
     /**
      * 查询所有,分页          动态sql     ================已测，没问题====
+     *
      * @param pageNum 第几页
      * @return
      */
     @PostMapping("/query_all/{pageNum}")
-    public RespBean<PageInfo<CommodityVO>> queryAll(@PathVariable("pageNum") Integer pageNum,Commodity commodity) {
-        PageInfo<CommodityVO> commodityPageInfo = commodityService.queryAll(pageNum,commodity);
+    public RespBean<PageInfo<CommodityVO>> queryAll(@PathVariable("pageNum") Integer pageNum, Commodity commodity) {
+        PageInfo<CommodityVO> commodityPageInfo = commodityService.queryAll(pageNum, commodity);
         return RespBean.success(commodityPageInfo);
     }
 
     /**
      * 根据花期查询                    ================已测，没问题=======
+     *
      * @param pageNum 第几页
-     * @param sizId 花期分类编号
+     * @param sizId   花期分类编号
      * @return
      */
     @GetMapping("/query_all_by_siz_id/{sizId}/{pageNum}")
-    public RespBean<PageInfo<CommodityVO>> queryAllBySizId(@PathVariable("pageNum") Integer pageNum,@PathVariable("sizId") Integer sizId) {
-        PageInfo<CommodityVO> commodityPageInfo = commodityService.queryAllBySizId(sizId,pageNum);
+    public RespBean<PageInfo<CommodityVO>> queryAllBySizId(@PathVariable("pageNum") Integer pageNum, @PathVariable("sizId") Integer sizId) {
+        PageInfo<CommodityVO> commodityPageInfo = commodityService.queryAllBySizId(sizId, pageNum);
         return RespBean.success(commodityPageInfo);
     }
 
     /**
-     * 添加数据                   ================已测，没问题=======
+     * 添加数据
+     *
      * @param commodity 实例对象
      * @return 实例对象
      */
     @PostMapping("/insert_one")
-    public RespBean<Commodity> insertOne(Commodity commodity,@RequestParam("phoUrl") MultipartFile[] multipartFiles) {
+    public RespBean<Commodity> insertOne(@RequestParam("comId") Integer comId,Commodity commodity, @RequestParam("phoUrl") MultipartFile[] multipartFiles) {
+
+        List<Photo> photoList = new ArrayList<>();
+        for (MultipartFile file : multipartFiles) {
+
+            if (file != null) {
+                String filename = file.getOriginalFilename();
+                if (filename != null) {
+                    String name = UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
+                    Photo photo = new Photo();
+                    photo.setPhoUrl(name);
+                    photo.setComId(comId);
+                    photo.setPhoDefault(0);
+                    photoList.add(photo);
+
+                }
+            }
+        }
+
         commodity.setGmtCreate(LocalDateTime.now());
         commodity.setGmtModified(LocalDateTime.now());
+        commodity.setComId(comId);
         int i = commodityService.insert(commodity);
-        if(i>0){
+        if (i > 0) {
+            for (Photo photo : photoList) {
+                photoService.insert(photo);
+            }
+            for (int j = 0; j < multipartFiles.length; j++) {
+                try {
+                    multipartFiles[j].transferTo(new File("E:\\upload\\" + photoList.get(j).getPhoUrl()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             return RespBean.success(commodity);
         }
         return RespBean.faild();
@@ -79,6 +129,7 @@ public class CommodityController {
 
     /**
      * 修改数据                    ================已测，没问题，restful====
+     *
      * @param commodity 修改的对象
      * @return 修改后的实例对象
      */
@@ -86,7 +137,7 @@ public class CommodityController {
     public RespBean<Commodity> updateOne(Commodity commodity) {
         commodity.setGmtModified(LocalDateTime.now());
         int i = commodityService.update(commodity);
-        if(i>0){
+        if (i > 0) {
             return RespBean.success(commodity);
         }
         return RespBean.faild();
@@ -94,13 +145,14 @@ public class CommodityController {
 
     /**
      * 删除数据                       ================已测，没问题，restful====
+     *
      * @param comId 商品编号
      * @return boolean
      */
     @DeleteMapping("/delete_one/{comId}")
     public RespBean<Boolean> insertOne(@PathVariable("comId") Integer comId) {
         boolean b = commodityService.deleteById(comId);
-        if(b){
+        if (b) {
             return RespBean.success();
         }
         return RespBean.faild();

@@ -14,11 +14,11 @@ import java.util.List;
 public interface PhotoMapper {
 
     /**
-     * 根据商品找图片
-     * @param comId 商品编号
+     * 根据图片编号或商品编号查询
+     * @param photo
      * @return
      */
-    List<Photo> queryById(Integer comId);
+    List<Photo> queryByPhoto(Photo photo);
 
 
     /**
@@ -43,6 +43,6 @@ public interface PhotoMapper {
      * @param phoId 主键
      * @return 影响行数
      */
-    int deleteById(Integer phoId);
+    int deleteById(Photo photo);
 
 }
