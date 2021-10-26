@@ -1,6 +1,8 @@
 package com.hs.service;
 
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Logistic;
+import com.hs.entity.Orders;
 
 import java.util.List;
 
@@ -21,13 +23,17 @@ public interface LogisticService {
     Logistic queryById(String logId);
 
     /**
-     * 查询多条数据
+     * 查询所有数据，并分页
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param page 查询起始位置
      * @return 对象列表
      */
-    List<Logistic> queryAllByLimit(int offset, int limit);
+    PageInfo<Logistic> queryAllByLimit(int page);
+
+    /**
+     * 通过实体类查询对象，并分页
+     */
+    PageInfo<Logistic> queryAllAndLimit(int page,Logistic logistic);
 
     /**
      * 新增数据
@@ -43,7 +49,7 @@ public interface LogisticService {
      * @param logistic 实例对象
      * @return 实例对象
      */
-    Logistic update(Logistic logistic);
+    int update(Logistic logistic);
 
     /**
      * 通过主键删除数据
@@ -51,6 +57,6 @@ public interface LogisticService {
      * @param logId 主键
      * @return 是否成功
      */
-    boolean deleteById(String logId);
+    int deleteById(String logId);
 
 }

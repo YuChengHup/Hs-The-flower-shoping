@@ -26,14 +26,24 @@ public class Orders implements Serializable {
     * 订单编号
     */
     private Integer ordId;
+//    /**
+//    * 用户编号
+//    */
+//    private Integer conId;
     /**
-    * 用户编号
-    */
-    private Integer conId;
+     * 使用实体类
+     */
+    private Consumer consumer;
+
+//    /**
+//    * 地址编号
+//    */
+//    private Integer locId;
     /**
-    * 地址编号
-    */
-    private Integer locId;
+     * 使用实体类
+     */
+
+    private Location location;
     /**
     * 总价
     */
@@ -43,16 +53,20 @@ public class Orders implements Serializable {
     */
     private String ordStatus;
     /**
-    * 备注
+    * 快递方式
     */
     private String ordRemark;
     /**
     * 插入时间
     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime gmtCreate;
     /**
      * 修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime gmtModified;
     /**
     * 备用

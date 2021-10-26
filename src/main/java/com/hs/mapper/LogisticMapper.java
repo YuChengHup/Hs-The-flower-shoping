@@ -39,6 +39,8 @@ public interface LogisticMapper {
      */
     List<Logistic> queryAll(Logistic logistic);
 
+    List<Logistic> queryAll1(Logistic logistic);
+
     /**
      * 新增数据
      *

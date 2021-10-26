@@ -1,5 +1,8 @@
 package com.hs.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.hs.entity.Orders;
 import com.hs.entity.Single;
 import com.hs.mapper.SingleMapper;
 import com.hs.service.SingleService;
@@ -17,8 +20,9 @@ import java.util.List;
  */
 @Service
 public class SingleServiceImpl implements SingleService {
+    private int size=3;
 
-    @Autowired
+    @Resource
     private SingleMapper singleMapper;
 
     /**
@@ -32,16 +36,22 @@ public class SingleServiceImpl implements SingleService {
         return this.singleMapper.queryById(sinId);
     }
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
+
     @Override
-    public List<Single> queryAllByLimit(int offset, int limit) {
-        return this.singleMapper.queryAllByLimit(offset, limit);
+    public PageInfo<Single> queryAllByLimit(int page) {
+        PageHelper.startPage(page,size);
+        Single single=new Single();
+        List<Single> singleList = singleMapper.queryAll1(single);
+        PageInfo<Single> pageInfo=new PageInfo<>(singleList);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<Single> queryAllAndLimit(int page, Single single) {
+        PageHelper.startPage(page,size);
+        List<Single> singleList = singleMapper.queryAll(single);
+        PageInfo<Single> pageInfo=new PageInfo<>(singleList);
+        return pageInfo;
     }
 
     /**
@@ -63,9 +73,8 @@ public class SingleServiceImpl implements SingleService {
      * @return 实例对象
      */
     @Override
-    public Single update(Single single) {
-        this.singleMapper.update(single);
-        return this.queryById(single.getSinId());
+    public int update(Single single) {
+        return this.singleMapper.update(single);
     }
 
     /**
@@ -75,7 +84,7 @@ public class SingleServiceImpl implements SingleService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer sinId) {
-        return this.singleMapper.deleteById(sinId) > 0;
+    public int deleteById(Integer sinId) {
+        return this.singleMapper.deleteById(sinId);
     }
 }

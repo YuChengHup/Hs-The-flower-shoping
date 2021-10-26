@@ -32,7 +32,7 @@ public class Single implements Serializable {
     /**
     * 商品
     */
-    private Integer comId;
+    private Commodity commodity;
     /**
     * 购买数量
     */
@@ -44,10 +44,14 @@ public class Single implements Serializable {
     /**
     * 插入时间
     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime gmtCreate;
     /**
      * 修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime gmtModified;
     /**
     * 备用

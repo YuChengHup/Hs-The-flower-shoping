@@ -5,20 +5,24 @@
     <resultMap id="BaseResultMap" type="com.hs.entity.Logistic">
         <!--@Table logistic-->
         <result property="logId" column="log_id" jdbcType="VARCHAR"/>
-        <result property="ordId" column="ord_id" jdbcType="INTEGER"/>
+
         <result property="logStatus" column="log_status" jdbcType="VARCHAR"/>
         <result property="logCreate" column="log_create" jdbcType="TIMESTAMP"/>
         <result property="logEstimate" column="log_estimate" jdbcType="TIMESTAMP"/>
         <result property="bySp1" column="by_sp1" jdbcType="VARCHAR"/>
         <result property="bySp2" column="by_sp2" jdbcType="VARCHAR"/>
+        <association property="orders" column="ord_id">
+            <id property="ordId" column="ord_id"/>
+            <result property="ordStatus" column="ord_status"/>
+        </association>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          log_id, ord_id, log_status, log_create, log_estimate, by_sp1, by_sp2
-        from logistic
-        where log_id = #{logId}
+          log_id, o.ord_id, o.ord_status, log_create, log_estimate, l.by_sp1, l.by_sp2
+        from logistic l,orders o
+        where log_id = #{logId} and l.ord_id=o.ord_id
     </select>
 
     <!--查询指定行数据-->
@@ -29,33 +33,42 @@
         limit #{offset}, #{limit}
     </select>
 
+    <!--查询所有并分页-->
+    <select id="queryAll1" resultMap="BaseResultMap">
+        select
+        log_id, o.ord_id, o.ord_status, log_create, log_estimate,l.by_sp1,l.by_sp2
+        from logistic l,orders o
+        where l.ord_id=o.ord_id
+    </select>
+
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          log_id, ord_id, log_status, log_create, log_estimate, by_sp1, by_sp2
-        from logistic
+        log_id, o.ord_id, o.ord_status, log_create, log_estimate,l.by_sp1,l.by_sp2
+        from logistic l,orders o
         <where>
             <if test="logId != null and logId != ''">
                 and log_id = #{logId}
             </if>
-            <if test="ordId != null">
-                and ord_id = #{ordId}
+            <if test="orders.ordId != null and orders.ordId!=''">
+                and o.ord_id = #{orders.ordId}
             </if>
-            <if test="logStatus != null and logStatus != ''">
-                and log_status = #{logStatus}
+            <if test="orders.ordStatus!=null and orders.ordStatus!='null'">
+                and ord_status = #{orders.ordStatus}
             </if>
             <if test="logCreate != null">
-                and log_create = #{logCreate}
+                and log_create > #{logCreate}
             </if>
             <if test="logEstimate != null">
-                and log_estimate = #{logEstimate}
+            <![CDATA[and log_create <= #{logEstimate}]]>
             </if>
             <if test="bySp1 != null and bySp1 != ''">
-                and by_sp1 = #{bySp1}
+                and l.by_sp1 = #{bySp1}
             </if>
             <if test="bySp2 != null and bySp2 != ''">
-                and by_sp2 = #{bySp2}
+                and l.by_sp2 = #{bySp2}
             </if>
+                and l.ord_id=o.ord_id
         </where>
     </select>
 
@@ -67,13 +80,13 @@
 
     <!--通过主键修改数据-->
     <update id="update">
-        update logistic
+        update logistic l,orders o
         <set>
-            <if test="ordId != null">
-                ord_id = #{ordId},
+            <if test="orders.ordId!= null">
+                o.ord_id = #{ordId},
             </if>
-            <if test="logStatus != null and logStatus != ''">
-                log_status = #{logStatus},
+            <if test="orders.ordStatus!=null and orders.ordStatus!='null'">
+                ord_status = #{orders.ordStatus},log_status= #{orders.ordStatus},
             </if>
             <if test="logCreate != null">
                 log_create = #{logCreate},
@@ -88,7 +101,7 @@
                 by_sp2 = #{bySp2},
             </if>
         </set>
-        where log_id = #{logId}
+        where l.ord_id=o.ord_id and log_id = #{logId}
     </update>
 
     <!--通过主键删除-->

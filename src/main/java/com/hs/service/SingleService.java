@@ -1,5 +1,7 @@
 package com.hs.service;
 
+import com.github.pagehelper.PageInfo;
+import com.hs.entity.Orders;
 import com.hs.entity.Single;
 
 import java.util.List;
@@ -21,13 +23,18 @@ public interface SingleService {
     Single queryById(Integer sinId);
 
     /**
-     * 查询多条数据
+     * 查询所有数据，并分页
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param page 查询起始位置
      * @return 对象列表
      */
-    List<Single> queryAllByLimit(int offset, int limit);
+    PageInfo<Single> queryAllByLimit(int page);
+
+    /**
+     * 通过实体类查询对象，并分页
+     */
+    PageInfo<Single> queryAllAndLimit(int page,Single single);
+
 
     /**
      * 新增数据
@@ -43,7 +50,7 @@ public interface SingleService {
      * @param single 实例对象
      * @return 实例对象
      */
-    Single update(Single single);
+    int update(Single single);
 
     /**
      * 通过主键删除数据
@@ -51,6 +58,6 @@ public interface SingleService {
      * @param sinId 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer sinId);
+    int deleteById(Integer sinId);
 
 }

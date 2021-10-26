@@ -5,8 +5,8 @@
     <resultMap id="BaseResultMap" type="com.hs.entity.Orders">
         <!--@Table orders-->
         <result property="ordId" column="ord_id" jdbcType="INTEGER"/>
-        <result property="conId" column="con_id" jdbcType="INTEGER"/>
-        <result property="locId" column="loc_id" jdbcType="INTEGER"/>
+<!--        <result property="conId" column="con_id" jdbcType="INTEGER"/>-->
+<!--        <result property="locId" column="loc_id" jdbcType="INTEGER"/>-->
         <result property="ordTotalPrice" column="ord_total_price" jdbcType="OTHER"/>
         <result property="ordStatus" column="ord_status" jdbcType="VARCHAR"/>
         <result property="ordRemark" column="ord_remark" jdbcType="VARCHAR"/>
@@ -14,14 +14,22 @@
         <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
         <result property="bySp1" column="by_sp1" jdbcType="VARCHAR"/>
         <result property="bySp2" column="by_sp2" jdbcType="VARCHAR"/>
+        <association property="consumer" column="con_id" javaType="com.hs.entity.Consumer">
+        <id property="conId" column="con_id"/>
+        <result property="conName" column="con_name"/>
+        </association>
+        <association property="location" column="loc_id">
+            <id property="locId" column="loc_id"/>
+            <result property="locAddress" column="loc_address"/>
+        </association>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          ord_id, con_id, loc_id, ord_total_price, ord_status, ord_remark, gmt_create, gmt_modified, by_sp1, by_sp2
-        from orders
-        where ord_id = #{ordId}
+        o.ord_id, con_name, loc_address, o.ord_total_price, o.ord_status, o.ord_remark, o.gmt_create, o.gmt_modified, o.by_sp1, o.by_sp2
+        from orders o,consumer c,location l
+        where ord_id = #{ordId} and o.con_id=c.con_id and o.loc_id=l.loc_id
     </select>
 
     <!--查询指定行数据-->
@@ -32,42 +40,84 @@
         limit #{offset}, #{limit}
     </select>
 
+
+    <!--分页查询全部-->
+    <select id="queryAll1" resultMap="BaseResultMap">
+        select
+        o.ord_id, c.con_name, l.loc_address, o.ord_total_price, o.ord_status, o.ord_remark, o.gmt_create, o.gmt_modified, o.by_sp1, o.by_sp2
+        from orders o,consumer c,location l
+        <where>
+            <if test="ordId != null">
+                and o.ord_id = #{ordId}
+            </if>
+            <if test="consumer!= null and consumer!=''">
+                and con_name = #{consumer.conName}
+            </if>
+            <if test="location!= null and location!=''">
+                and loc_address = #{location.locAddress}
+            </if>
+            <if test="ordTotalPrice != null">
+                and o.ord_total_price = #{ordTotalPrice}
+            </if>
+            <if test="ordStatus != null and ordStatus !='null'" >
+                and o.ord_status = #{ordStatus}
+            </if>
+            <if test="ordRemark != null and ordRemark !='null'">
+                and o.ord_remark = #{ordRemark}
+            </if>
+            <if test="gmtCreate != null">
+                and o.gmt_create >= #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                <![CDATA[and o.gmt_create <= #{gmtModified}]]>
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                and o.by_sp1 = #{bySp1}
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                and o.by_sp2 = #{bySp2}
+            </if>
+            and o.con_id=c.con_id and o.loc_id=l.loc_id
+        </where>
+    </select>
+
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          ord_id, con_id, loc_id, ord_total_price, ord_status, ord_remark, gmt_create, gmt_modified, by_sp1, by_sp2
-        from orders
+        o.ord_id, c.con_name, l.loc_address, o.ord_total_price, o.ord_status, o.ord_remark, o.gmt_create, o.gmt_modified, o.by_sp1, o.by_sp2
+        from orders o,consumer c,location l
         <where>
             <if test="ordId != null">
-                and ord_id = #{ordId}
+                and o.ord_id = #{ordId}
             </if>
-            <if test="conId != null">
-                and con_id = #{conId}
+            <if test="consumer.conName != null and consumer.conName !=''">
+                and con_name = #{consumer.conName}
             </if>
-            <if test="locId != null">
-                and loc_id = #{locId}
+            <if test="location.locAddress != null and location.locAddress!=''">
+                and loc_address = #{location.locAddress}
             </if>
             <if test="ordTotalPrice != null">
-                and ord_total_price = #{ordTotalPrice}
+                and o.ord_total_price = #{ordTotalPrice}
             </if>
-            <if test="ordStatus != null and ordStatus != ''">
-                and ord_status = #{ordStatus}
+            <if test="ordStatus != null and ordStatus !='null'" >
+                and o.ord_status = #{ordStatus}
             </if>
-            <if test="ordRemark != null and ordRemark != ''">
-                and ord_remark = #{ordRemark}
+            <if test="ordRemark != null and ordRemark !='null'">
+                and o.ord_remark = #{ordRemark}
             </if>
             <if test="gmtCreate != null">
-                and gmt_create = #{gmtCreate}
+                and o.gmt_create >= #{gmtCreate}
             </if>
             <if test="gmtModified != null">
-                and gmt_modified = #{gmtModified}
+            <![CDATA[and o.gmt_create <= #{gmtModified}]]>
             </if>
             <if test="bySp1 != null and bySp1 != ''">
-                and by_sp1 = #{bySp1}
+                and o.by_sp1 = #{bySp1}
             </if>
             <if test="bySp2 != null and bySp2 != ''">
-                and by_sp2 = #{bySp2}
+                and o.by_sp2 = #{bySp2}
             </if>
+            and o.con_id=c.con_id and o.loc_id=l.loc_id
         </where>
     </select>
 
@@ -78,23 +128,23 @@
     </insert>
 
     <!--通过主键修改数据-->
-    <update id="update">
-        update orders
+    <update id="update" parameterType="com.hs.entity.Orders">
+        update orders o,consumer c,location l
         <set>
-            <if test="conId != null">
-                con_id = #{conId},
+            <if test="consumer.conName != null">
+                con_name = #{consumer.conName},
             </if>
-            <if test="locId != null">
-                loc_id = #{locId},
+            <if test="location.locAddress != null">
+                loc_address = #{location.locAddress},
             </if>
             <if test="ordTotalPrice != null">
-                ord_total_price = #{ordTotalPrice},
+                o.ord_total_price = #{ordTotalPrice},
             </if>
-            <if test="ordStatus != null and ordStatus != ''">
-                ord_status = #{ordStatus},
+            <if test="ordStatus != null and ordStatus !='null'" >
+                o.ord_status = #{ordStatus},
             </if>
-            <if test="ordRemark != null and ordRemark != ''">
-                ord_remark = #{ordRemark},
+            <if test="ordRemark != null and ordRemark !='null'">
+                o.ord_remark = #{ordRemark},
             </if>
             <if test="gmtCreate != null">
                 gmt_create = #{gmtCreate},
@@ -109,7 +159,7 @@
                 by_sp2 = #{bySp2},
             </if>
         </set>
-        where ord_id = #{ordId}
+        where ord_id = #{ordId} and o.con_id=c.con_id and o.loc_id=l.loc_id
     </update>
 
     <!--通过主键删除-->

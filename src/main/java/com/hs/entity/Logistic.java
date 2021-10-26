@@ -28,7 +28,7 @@ public class Logistic implements Serializable {
     /**
     * 订单编号
     */
-    private Integer ordId;
+    private Orders orders;
     /**
     * 物流状态
     */
@@ -36,11 +36,15 @@ public class Logistic implements Serializable {
     /**
     * 发货日期
     */
-    private LocalDateTime gmtCreate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime logCreate;
     /**
      * 到货时间
      */
-    private LocalDateTime gmtModified;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime logEstimate;
     /**
     * 备用
     */

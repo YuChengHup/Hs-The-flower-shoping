@@ -5,21 +5,24 @@
     <resultMap id="BaseResultMap" type="com.hs.entity.Single">
         <!--@Table single-->
         <result property="sinId" column="sin_id" jdbcType="INTEGER"/>
-        <result property="ordId" column="ord_id" jdbcType="INTEGER"/>
-        <result property="comId" column="com_id" jdbcType="INTEGER"/>
+        <result property="ordId" column="ord_id" javaType="INTEGER"/>
         <result property="sinNum" column="sin_num" jdbcType="INTEGER"/>
         <result property="sinPrice" column="sin_price" jdbcType="OTHER"/>
         <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
         <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
         <result property="bySp1" column="by_sp1" jdbcType="VARCHAR"/>
         <result property="bySp2" column="by_sp2" jdbcType="VARCHAR"/>
+        <association property="commodity" column="com_id">
+            <id property="comId" column="com_id"/>
+            <result property="comName" column="com_name"/>
+        </association>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
         select
-          sin_id, ord_id, com_id, sin_num, sin_price, gmt_create, gmt_modified, by_sp1, by_sp2
-        from single
+          s.sin_id, s.ord_id, c.com_name, s.sin_num, s.sin_price, s.gmt_create
+        from single s,commodity c
         where sin_id = #{sinId}
     </select>
 
@@ -31,11 +34,11 @@
         limit #{offset}, #{limit}
     </select>
 
-    <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="BaseResultMap">
+    <!--分页查询全部-->
+    <select id="queryAll1" resultMap="BaseResultMap">
         select
-          sin_id, ord_id, com_id, sin_num, sin_price, gmt_create, gmt_modified, by_sp1, by_sp2
-        from single
+        sin_id, ord_id, c.com_name,sin_num,sin_price,s.gmt_create,s.gmt_modified
+        from single s,commodity c
         <where>
             <if test="sinId != null">
                 and sin_id = #{sinId}
@@ -43,20 +46,20 @@
             <if test="ordId != null">
                 and ord_id = #{ordId}
             </if>
-            <if test="comId != null">
-                and com_id = #{comId}
+            <if test="commodity!= null and commodity!=''">
+                and com_name = #{commodity.comName}
             </if>
             <if test="sinNum != null">
-                and sin_num = #{sinNum}
+                and sin_num >= #{sinNum}
             </if>
             <if test="sinPrice != null">
-                and sin_price = #{sinPrice}
+                and sin_price >= #{sinPrice}
             </if>
             <if test="gmtCreate != null">
-                and gmt_create = #{gmtCreate}
+                and s.gmt_create >= #{gmtCreate}
             </if>
             <if test="gmtModified != null">
-                and gmt_modified = #{gmtModified}
+                <![CDATA[and s.gmt_create <= #{gmtModified}]]>
             </if>
             <if test="bySp1 != null and bySp1 != ''">
                 and by_sp1 = #{bySp1}
@@ -64,6 +67,44 @@
             <if test="bySp2 != null and bySp2 != ''">
                 and by_sp2 = #{bySp2}
             </if>
+            and s.com_id=c.com_id
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        sin_id, ord_id, c.com_name,sin_num,sin_price,s.gmt_create,s.gmt_modified
+        from single s,commodity c
+        <where>
+            <if test="sinId != null">
+                and sin_id = #{sinId}
+            </if>
+            <if test="ordId != null">
+                and ord_id = #{ordId}
+            </if>
+            <if test="commodity.comName!= null and commodity.comName!=''">
+                and com_name = #{commodity.comName}
+            </if>
+            <if test="sinNum != null">
+                and sin_num >= #{sinNum}
+            </if>
+            <if test="sinPrice != null">
+                and sin_price >= #{sinPrice}
+            </if>
+            <if test="gmtCreate != null">
+                and s.gmt_create >= #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                <![CDATA[and s.gmt_create <= #{gmtModified}]]>
+            </if>
+            <if test="bySp1 != null and bySp1 != ''">
+                and by_sp1 = #{bySp1}
+            </if>
+            <if test="bySp2 != null and bySp2 != ''">
+                and by_sp2 = #{bySp2}
+            </if>
+                and s.com_id=c.com_id
         </where>
     </select>
 
@@ -75,13 +116,16 @@
 
     <!--通过主键修改数据-->
     <update id="update">
-        update single
+        update single s,commodity c
         <set>
+            <if test="sinId != null">
+                sin_id = #{sinId},
+            </if>
             <if test="ordId != null">
                 ord_id = #{ordId},
             </if>
-            <if test="comId != null">
-                com_id = #{comId},
+            <if test="commodity.conName!= null and commodity.conName!=''">
+                com_name = #{commodity.comName},
             </if>
             <if test="sinNum != null">
                 sin_num = #{sinNum},
@@ -90,10 +134,10 @@
                 sin_price = #{sinPrice},
             </if>
             <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate},
+                s.gmt_create = #{gmtCreate},
             </if>
             <if test="gmtModified != null">
-                gmt_modified = #{gmtModified},
+                s.gmt_create = #{gmtModified},
             </if>
             <if test="bySp1 != null and bySp1 != ''">
                 by_sp1 = #{bySp1},
@@ -102,7 +146,7 @@
                 by_sp2 = #{bySp2},
             </if>
         </set>
-        where sin_id = #{sinId}
+        where sin_id = #{sinId} and s.com_id=c.com_id
     </update>
 
     <!--通过主键删除-->

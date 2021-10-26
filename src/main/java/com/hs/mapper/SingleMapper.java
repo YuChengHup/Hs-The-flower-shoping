@@ -28,7 +28,7 @@ public interface SingleMapper {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Single> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Single> queryAllByLimit(int offset, @Param("limit") int limit);
 
 
     /**
@@ -38,6 +38,8 @@ public interface SingleMapper {
      * @return 对象列表
      */
     List<Single> queryAll(Single single);
+
+    List<Single> queryAll1(Single single);
 
     /**
      * 新增数据

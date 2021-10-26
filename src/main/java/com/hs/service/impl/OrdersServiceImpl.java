@@ -1,5 +1,7 @@
 package com.hs.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Orders;
 import com.hs.mapper.OrdersMapper;
 import com.hs.service.OrdersService;
@@ -17,8 +19,9 @@ import java.util.List;
  */
 @Service
 public class OrdersServiceImpl implements OrdersService {
+    private int size=3;
 
-    @Autowired
+    @Resource
     private OrdersMapper ordersMapper;
 
     /**
@@ -35,13 +38,28 @@ public class OrdersServiceImpl implements OrdersService {
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param page 查询起始位置
+     * orders 为空,查询所有
      * @return 对象列表
      */
     @Override
-    public List<Orders> queryAllByLimit(int offset, int limit) {
-        return this.ordersMapper.queryAllByLimit(offset, limit);
+    public PageInfo<Orders> queryAllByLimit(int page) {
+        PageHelper.startPage(page,size);
+        Orders orders=new Orders();
+        List<Orders> ordersList = ordersMapper.queryAll1(orders);
+        PageInfo<Orders> pageInfo=new PageInfo<>(ordersList);
+        return pageInfo;
+
+    }
+
+
+
+    @Override
+    public PageInfo<Orders> queryAllAndLimit(int page,Orders orders) {
+        PageHelper.startPage(page,size);
+        List<Orders> ordersList = ordersMapper.queryAll(orders);
+        PageInfo<Orders> pageInfo=new PageInfo<>(ordersList);
+        return pageInfo;
     }
 
     /**
@@ -63,9 +81,8 @@ public class OrdersServiceImpl implements OrdersService {
      * @return 实例对象
      */
     @Override
-    public Orders update(Orders orders) {
-        this.ordersMapper.update(orders);
-        return this.queryById(orders.getOrdId());
+    public int update(Orders orders) {
+        return this.ordersMapper.update(orders);
     }
 
     /**
@@ -75,7 +92,7 @@ public class OrdersServiceImpl implements OrdersService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer ordId) {
-        return this.ordersMapper.deleteById(ordId) > 0;
+    public int deleteById(Integer ordId) {
+        return this.ordersMapper.deleteById(ordId);
     }
 }

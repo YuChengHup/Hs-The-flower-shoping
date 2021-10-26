@@ -1,6 +1,9 @@
 package com.hs.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Logistic;
+import com.hs.entity.Orders;
 import com.hs.mapper.LogisticMapper;
 import com.hs.service.LogisticService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,7 @@ import java.util.List;
  */
 @Service
 public class LogisticServiceImpl implements LogisticService {
-
+    private int size=3;
     @Autowired
     private LogisticMapper logisticMapper;
 
@@ -35,15 +38,28 @@ public class LogisticServiceImpl implements LogisticService {
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param page 查询起始位置
      * @return 对象列表
      */
     @Override
-    public List<Logistic> queryAllByLimit(int offset, int limit) {
-        return this.logisticMapper.queryAllByLimit(offset, limit);
+    public PageInfo<Logistic> queryAllByLimit(int page) {
+        PageHelper.startPage(page,size);
+        Logistic logistic=new Logistic();
+        List<Logistic> logisticList = logisticMapper.queryAll1(logistic);
+        PageInfo<Logistic> pageInfo=new PageInfo<>(logisticList);
+        return pageInfo;
+
     }
 
+
+
+    @Override
+    public PageInfo<Logistic> queryAllAndLimit(int page,Logistic logistic) {
+        PageHelper.startPage(page,size);
+        List<Logistic> logisticList = logisticMapper.queryAll(logistic);
+        PageInfo<Logistic> pageInfo=new PageInfo<>(logisticList);
+        return pageInfo;
+    }
     /**
      * 新增数据
      *
@@ -63,9 +79,8 @@ public class LogisticServiceImpl implements LogisticService {
      * @return 实例对象
      */
     @Override
-    public Logistic update(Logistic logistic) {
-        this.logisticMapper.update(logistic);
-        return this.queryById(logistic.getLogId());
+    public int update(Logistic logistic) {
+        return this.logisticMapper.update(logistic);
     }
 
     /**
@@ -75,7 +90,7 @@ public class LogisticServiceImpl implements LogisticService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(String logId) {
-        return this.logisticMapper.deleteById(logId) > 0;
+    public int deleteById(String logId) {
+        return this.logisticMapper.deleteById(logId);
     }
 }

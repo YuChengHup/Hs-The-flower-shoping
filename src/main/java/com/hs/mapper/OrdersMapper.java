@@ -39,6 +39,9 @@ public interface OrdersMapper {
      */
     List<Orders> queryAll(Orders orders);
 
+    List<Orders> queryAll1(Orders orders);
+
+
     /**
      * 新增数据
      *
