@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface SortService {
 
-    Integer PAGESIZE=10;   // 每页显示几个
+    Integer PAGESIZE=5;   // 每页显示几个
     /**
      * 通过ID查询单条数据
      *

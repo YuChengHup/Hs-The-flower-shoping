@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Service
 public class LogisticServiceImpl implements LogisticService {
-    private int size=3;
+    private int size=5;
     @Autowired
     private LogisticMapper logisticMapper;
 
