@@ -84,5 +84,13 @@ public class OrdersController {
     }
 
 
+    /**
+     * 查询数量
+     * @return
+     */
+    @GetMapping("/query_num")
+    public RespBean<Long> queryNum() {
+        return RespBean.success(ordersService.queryNum());
+    }
 
 }

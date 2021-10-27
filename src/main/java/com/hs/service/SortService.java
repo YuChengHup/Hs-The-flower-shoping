@@ -61,4 +61,10 @@ public interface SortService {
      */
     List<SortVO> queryBySizId(Integer sizId);
 
+
+    /**
+     * 查询数量
+     * @return
+     */
+    Long queryNum();
 }

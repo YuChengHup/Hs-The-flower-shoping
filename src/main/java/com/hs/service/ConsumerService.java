@@ -91,5 +91,10 @@ public interface ConsumerService {
      */
     int deleteById(Consumer consumer);
 
+    /**
+     * 查询数量
+     * @return
+     */
+    Long queryNum();
 
 }

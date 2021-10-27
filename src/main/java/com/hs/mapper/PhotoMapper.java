@@ -40,9 +40,12 @@ public interface PhotoMapper {
     /**
      * 通过主键删除数据
      *
-     * @param phoId 主键
+     * @param photo 主键
      * @return 影响行数
      */
     int deleteById(Photo photo);
+
+
+    Long queryNumByComId(Integer comId);
 
 }

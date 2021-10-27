@@ -41,6 +41,12 @@
     </select>
 
 
+    <select id="queryNum" resultType="java.lang.Long">
+        select count(*)
+        from orders
+    </select>
+
+
     <!--分页查询全部-->
     <select id="queryAll1" resultMap="BaseResultMap">
         select

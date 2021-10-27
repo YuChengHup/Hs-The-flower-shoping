@@ -113,4 +113,14 @@ public class SortController {
         return RespBean.faild();
     }
 
+    /**
+     * 查询数量
+     * @return
+     */
+    @GetMapping("/query_num")
+    public RespBean<Long> queryNum() {
+        return RespBean.success(sortService.queryNum());
+    }
+
+
 }

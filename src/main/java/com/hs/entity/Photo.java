@@ -1,10 +1,13 @@
 package com.hs.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * (Photo)实体类
@@ -36,7 +39,9 @@ public class Photo implements Serializable {
     /**
     * 备用
     */
-    private String bySp1;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime bySp1;
     /**
     * 备用
     */

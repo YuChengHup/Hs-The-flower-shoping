@@ -45,4 +45,7 @@ public interface PhotoService {
      */
     boolean deleteById(Photo photo);
 
+
+
+    Long queryNumByComId(Integer comId);
 }

@@ -44,17 +44,23 @@ public class PhotoController {
     @PostMapping("/insert")
     public RespBean<Integer> insert(MultipartFile file, Photo photo) {
 
+        Long num = photoService.queryNumByComId(photo.getComId());
+        if (num >= 5) {
+            return RespBean.faild();
+        }
         String filename = file.getOriginalFilename();
-        String name="";
+        String name = "";
         if (filename != null) {
             name = UUID.randomUUID().toString() + filename.substring(filename.lastIndexOf("."));
             photo.setPhoUrl(name);
+            photo.setPhoDefault(0);
+            photo.setBySp1(LocalDateTime.now());
         }
 
         int i = photoService.insert(photo);
-        if(i>0){
+        if (i > 0) {
             try {
-                file.transferTo(new File("E:\\upload\\" + name));
+                file.transferTo(new File("E:\\web-shop-group1\\web-shop-front\\end\\images\\" + name));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,7 +72,7 @@ public class PhotoController {
     @PutMapping("/update")
     public RespBean<Integer> update(Photo photo) {
         int i = photoService.update(photo);
-        if(i>0){
+        if (i > 0) {
             return RespBean.success(i);
         }
         return RespBean.faild();
@@ -75,7 +81,7 @@ public class PhotoController {
     @DeleteMapping("/delete")
     public RespBean<Boolean> delete(Photo photo) {
         boolean b = photoService.deleteById(photo);
-        if(b){
+        if (b) {
             return RespBean.success(b);
         }
         return RespBean.faild();

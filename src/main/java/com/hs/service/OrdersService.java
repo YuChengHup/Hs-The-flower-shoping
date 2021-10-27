@@ -59,4 +59,9 @@ public interface OrdersService {
      */
     int deleteById(Integer ordId);
 
+    /**
+     * 查询数量
+     * @return
+     */
+    Long queryNum();
 }

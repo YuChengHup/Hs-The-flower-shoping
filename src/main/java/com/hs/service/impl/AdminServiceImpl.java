@@ -1,5 +1,7 @@
 package com.hs.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hs.entity.Admin;
 import com.hs.entity.Token;
 import com.hs.mapper.AdminMapper;
@@ -47,68 +49,13 @@ public class AdminServiceImpl implements AdminService {
 
 
     /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-//    @Override
-//    public List<Admin> queryAllByLimit(int offset, int limit) {
-//        return this.adminMapper.queryAllByLimit(offset, limit);
-//    }
-
-    /**
-     * 新增数据
-     *
-     * @param admin 实例对象
-     * @return 实例对象
-     */
-//    @Override
-//    public Admin insert(Admin admin) {
-//        this.adminMapper.insert(admin);
-//        return admin;
-//    }
-
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param admId 主键
-     * @return 是否成功
-     */
-//    @Override
-//    public boolean deleteById(Integer admId) {
-//        return this.adminMapper.deleteById(admId) > 0;
-//    }
-
-    /**
-     * 查询一个byId
-     * @param admId
-     * @return
-     */
-//    @Override
-//    public Admin findAdminById(int admId) {
-//        return adminMapper.queryById(admId);
-//    }
-
-    /**
-     * 通过id查找token
-     *
-     * @param admId
-     * @return
-     */
-    @Override
-    public Token findToken(int admId) {
-        return adminMapper.findToken(admId);
-    }
-
-    /**
      * 查询所有管理员
      */
     @Override
-    public List<Admin> findAllAdmin() {
-        return adminMapper.findAllAdmin();
+    public PageInfo<Admin> findAllAdmin(Integer pageNum) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Admin> adminList = adminMapper.findAllAdmin();
+        return new PageInfo<>(adminList);
     }
 
     /**
@@ -126,10 +73,9 @@ public class AdminServiceImpl implements AdminService {
      * 删除管理员
      */
     @Override
-    public int deleteAdmin(int adm_id) {
-        return adminMapper.deleteAdmin(adm_id);
+    public int deleteAdmin(int admId) {
+        return adminMapper.deleteAdmin(admId);
     }
-
 
     /**
      * 修改密码
@@ -142,32 +88,17 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int updatePasswd(int admId, String oldPasswd, String newPasswd) {
         Admin admin = adminMapper.findOldPasswdByAdmId(admId);
-//        if (!admin.getAdmId().equals(admId)) {
-////            账户错误
-//            return 2;
-//        } else {
-            if (!admin.getPasswd().equals(oldPasswd)) {
+
+        if (!admin.getPasswd().equals(oldPasswd)) {
 //              老密码错误
-                return 0;
-            }else {
-                if (oldPasswd.equals(newPasswd)){
-                    return 3;
-                }else {
-                    int i = adminMapper.updatePasswd(newPasswd, admId);
-                    return i;
-                }
-
-
+            return -1;
+        } else {
+            if (oldPasswd.equals(newPasswd)) {
+                return -2;
+            } else {
+                return adminMapper.updatePasswd(newPasswd, admId);
+            }
 
         }
-
-//        if (i>0){
-////            修改成功
-//            return 1;
-//        }
-////        修改失败
-//        return 3;
-//    }
-
     }
 }

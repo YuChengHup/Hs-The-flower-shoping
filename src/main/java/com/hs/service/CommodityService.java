@@ -71,4 +71,10 @@ public interface CommodityService {
      */
     boolean idUnique(Integer comId);
 
+    /**
+     * 查询数量
+     * @return
+     */
+    Long queryNum();
+
 }

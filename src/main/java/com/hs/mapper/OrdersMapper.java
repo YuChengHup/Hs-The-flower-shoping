@@ -66,4 +66,6 @@ public interface OrdersMapper {
      */
     int deleteById(Integer ordId);
 
+    Long queryNum();
+
 }

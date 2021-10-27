@@ -86,4 +86,11 @@ public class SortServiceImpl implements SortService {
 
         return sortMapper.queryBySizId(sizId);
     }
+
+    @Override
+    public Long queryNum() {
+        return sortMapper.queryNum();
+    }
+
+
 }

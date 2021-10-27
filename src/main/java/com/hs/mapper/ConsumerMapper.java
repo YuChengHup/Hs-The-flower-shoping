@@ -87,4 +87,11 @@ public interface ConsumerMapper {
      * 添加会员
      */
     int addConsumer(Consumer consumer);
+
+    /**
+     * 查询数量
+     * @return
+     */
+    Long queryNum();
+
 }

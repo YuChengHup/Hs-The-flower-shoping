@@ -61,4 +61,10 @@
         delete from sort where sor_id = #{sorId}
     </delete>
 
+    <select id="queryNum" resultType="java.lang.Long">
+        select count(*)
+        from sort
+
+    </select>
+
 </mapper>

@@ -130,4 +130,10 @@ public class ConsumerController {
     public RespBean<Consumer> findById(Consumer consumer){
         return RespBean.success(consumerService.findById(consumer));
     }
+
+
+    @GetMapping("/query_num")
+    public RespBean<Long> queryNum(){
+        return RespBean.success(consumerService.queryNum());
+    }
 }

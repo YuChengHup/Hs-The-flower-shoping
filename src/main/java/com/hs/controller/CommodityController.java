@@ -88,7 +88,7 @@ public class CommodityController {
      * @return 实例对象
      */
     @PostMapping("/insert_one")
-    public RespBean<Commodity> insertOne(@RequestParam("comId") Integer comId,Commodity commodity, @RequestParam("phoUrl") MultipartFile[] multipartFiles) {
+    public RespBean<Commodity> insertOne(@RequestParam("comId") Integer comId, Commodity commodity, @RequestParam("phoUrl") MultipartFile[] multipartFiles) {
 
         List<Photo> photoList = new ArrayList<>();
         for (MultipartFile file : multipartFiles) {
@@ -101,6 +101,7 @@ public class CommodityController {
                     photo.setPhoUrl(name);
                     photo.setComId(comId);
                     photo.setPhoDefault(0);
+                    photo.setBySp1(LocalDateTime.now());
                     photoList.add(photo);
 
                 }
@@ -110,6 +111,7 @@ public class CommodityController {
         commodity.setGmtCreate(LocalDateTime.now());
         commodity.setGmtModified(LocalDateTime.now());
         commodity.setComId(comId);
+        commodity.setComVolume(0);
         int i = commodityService.insert(commodity);
         if (i > 0) {
             for (Photo photo : photoList) {
@@ -117,7 +119,7 @@ public class CommodityController {
             }
             for (int j = 0; j < multipartFiles.length; j++) {
                 try {
-                    multipartFiles[j].transferTo(new File("E:\\upload\\" + photoList.get(j).getPhoUrl()));
+                    multipartFiles[j].transferTo(new File("E:\\web-shop-group1\\web-shop-front\\end\\images\\" + photoList.get(j).getPhoUrl()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -156,6 +158,15 @@ public class CommodityController {
             return RespBean.success();
         }
         return RespBean.faild();
+    }
+
+    /**
+     * 查询数量
+     * @return
+     */
+    @GetMapping("/query_num")
+    public RespBean<Long> queryNum() {
+        return RespBean.success(commodityService.queryNum());
     }
 
 }

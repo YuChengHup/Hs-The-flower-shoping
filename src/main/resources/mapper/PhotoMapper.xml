@@ -27,8 +27,11 @@
         </where>
     </select>
 
-
-
+    <select id="queryNumByComId" resultType="java.lang.Long">
+        select count(*)
+        from photo
+        where com_id = #{comId}
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="phoId" useGeneratedKeys="true">

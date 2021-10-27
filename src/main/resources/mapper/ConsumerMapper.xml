@@ -27,6 +27,13 @@
         where con_id = #{conId}
     </select>
 
+    <select id="queryNum" resultType="java.lang.Long">
+        select count(*)
+        from consumer
+
+    </select>
+
+
     <!--    查询所有会员数据-->
     <select id="findAll" resultMap="BaseResultMap">
         select * from consumer where con_status=0

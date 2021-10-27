@@ -142,7 +142,7 @@ public class ConsumerServiceImpl implements ConsumerService {
      */
     @Override
     public int update(Consumer consumer) {
-        return this.consumerMapper.update(consumer);
+        return consumerMapper.update(consumer);
     }
 
     /**
@@ -153,7 +153,16 @@ public class ConsumerServiceImpl implements ConsumerService {
      */
     @Override
     public int deleteById(Consumer consumer) {
-        return this.consumerMapper.deleteById(consumer);
+        return consumerMapper.deleteById(consumer);
+    }
+
+    /**
+     * 查询数量
+     * @return
+     */
+    @Override
+    public Long queryNum() {
+        return consumerMapper.queryNum();
     }
 
 }

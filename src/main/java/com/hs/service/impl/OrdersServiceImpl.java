@@ -95,4 +95,9 @@ public class OrdersServiceImpl implements OrdersService {
     public int deleteById(Integer ordId) {
         return this.ordersMapper.deleteById(ordId);
     }
+
+    @Override
+    public Long queryNum() {
+        return ordersMapper.queryNum();
+    }
 }

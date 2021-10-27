@@ -13,7 +13,7 @@
 
 
 
-    <!--查询单个-->
+    <!--查询单个  通过id和passwd查询-->
     <select id="queryById" resultMap="BaseResultMap">
         select
           adm_id, adm_zh, passwd, by_sp1, by_sp2
@@ -21,28 +21,6 @@
         where adm_id = #{admId} and passwd=#{passwd}
     </select>
 
-
-    <!--新增所有列-->
-    <insert id="insert" keyProperty="admId" useGeneratedKeys="true">
-        insert into web-shop.admin(adm_zh, passwd, by_sp1, by_sp2)
-        values (#{admin}, #{passwd}, #{bySp1}, #{bySp2})
-    </insert>
-
-    <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from web-shop.admin where adm_id = #{admId}
-    </delete>
-
-
-    <!--    通过id查询管理员-->
-<!--    <select id="queryById" resultType="Admin">-->
-<!--        select * from admin where adm_id=#{admId}-->
-<!--    </select>-->
-
-    <!--    通过id查找token-->
-    <select id="findToken" resultType="Token">
-        select * from token where adm_id=#{admId}
-    </select>
     <!--    查询所有管理员-->
     <select id="findAllAdmin" resultType="Admin">
         select * from admin
@@ -50,7 +28,7 @@
 
     <!--    添加管理员-->
     <insert id="addAdmin" parameterType="Admin">
-        insert into admin values(null ,#{admZh},#{passwd},null,null)
+        insert into admin values( #{admId},#{admZh},#{passwd},null,null)
     </insert>
 
     <!--    删除管理员-->
@@ -65,7 +43,7 @@
 
     <!--    修改密码-->
     <update id="updatePasswd">
-        update admin set passwd=#{newPasswd} where adm_id=#{admId}
+        update admin set passwd=#{passwd} where adm_id=#{admId}
     </update>
 
 </mapper>

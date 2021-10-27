@@ -101,4 +101,15 @@ public class CommodityServiceImpl implements CommodityService {
 
         return commodityMapper.idUnique(comId)<=0;
     }
+
+    /**
+     * 查询数量
+     * @return
+     */
+    @Override
+    public Long queryNum() {
+        return commodityMapper.queryNum();
+    }
+
+
 }

@@ -62,4 +62,9 @@ public class PhotoServiceImpl implements PhotoService {
     public boolean deleteById(Photo photo) {
         return photoMapper.deleteById(photo) > 0;
     }
+
+    @Override
+    public Long queryNumByComId(Integer comId) {
+        return photoMapper.queryNumByComId(comId);
+    }
 }

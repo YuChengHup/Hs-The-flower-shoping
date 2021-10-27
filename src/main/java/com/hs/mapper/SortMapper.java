@@ -60,4 +60,5 @@ public interface SortMapper {
      */
     List<SortVO> queryBySizId(Integer sizId);
 
+    Long queryNum();
 }

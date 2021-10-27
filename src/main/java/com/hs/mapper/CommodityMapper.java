@@ -70,4 +70,11 @@ public interface CommodityMapper {
      */
     Long idUnique(Integer comId);
 
+
+    /**
+     * 查询数量
+     * @return
+     */
+    Long queryNum();
+
 }
