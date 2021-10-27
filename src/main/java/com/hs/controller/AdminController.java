@@ -127,6 +127,7 @@ public class AdminController {
     public RespBean<Integer> loginOut(Token token) {
 
         return RespBean.success();
+
     }
 
 }

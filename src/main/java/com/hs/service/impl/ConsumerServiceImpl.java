@@ -1,5 +1,6 @@
 package com.hs.service.impl;
 
+import com.alibaba.druid.sql.ast.statement.SQLIfStatement;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hs.entity.Consumer;
@@ -22,6 +23,20 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Autowired
     private ConsumerMapper consumerMapper;
+
+
+    @Override
+    public int login(Consumer consumer) {
+        Consumer consumer1 = consumerMapper.queryById(consumer);
+        if (consumer1==null){
+            return 1;
+        }else if (!consumer1.getPasswd().equals(consumer.getPasswd())){
+            return 0;
+        }else if (consumer1.getConStatus()==1){
+            return 3;
+        }
+        return 2;
+    }
 
     /**
      * 通过ID查询单条数据
@@ -132,6 +147,19 @@ public class ConsumerServiceImpl implements ConsumerService {
     public Consumer insert(Consumer consumer) {
         this.consumerMapper.insert(consumer);
         return consumer;
+    }
+
+    @Override
+    public int upPasswd(Consumer consumer, String passwd2) {
+        Consumer consumer1 = consumerMapper.queryById(consumer);
+        if (!consumer1.getPasswd().equals(consumer.getPasswd())){
+            //旧密码错误
+            return 2;
+        }
+        Consumer consumer2=new Consumer();
+        consumer2.setConId(consumer.getConId());
+        System.out.println(consumer2.getPasswd());
+        return consumerMapper.update(consumer2);
     }
 
     /**

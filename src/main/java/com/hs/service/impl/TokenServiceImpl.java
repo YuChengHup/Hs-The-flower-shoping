@@ -47,4 +47,13 @@ public class TokenServiceImpl implements TokenService {
     public int deleteById(String token) {
         return tokenMapper.deleteById(token) ;
     }
+
+
+    /**
+     * 通过conId删除
+     */
+    @Override
+    public int deleteByConId(int conId) {
+    return tokenMapper.deleteByConId(conId);
+    }
 }

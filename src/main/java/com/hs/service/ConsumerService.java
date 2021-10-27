@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface ConsumerService {
 
+    int login(Consumer consumer);
+
     /**
      * 通过ID查询单条数据
      *
@@ -74,6 +76,11 @@ public interface ConsumerService {
      * @return 实例对象
      */
     Consumer insert(Consumer consumer);
+
+    /**
+     * 修改密码
+     */
+     int upPasswd(Consumer consumer,String passwd2);
 
     /**
      * 修改数据

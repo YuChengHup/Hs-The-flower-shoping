@@ -20,6 +20,14 @@
     </resultMap>
 
     <!--查询单个-->
+    <select id="selectById" parameterType="Consumer" resultMap="BaseResultMap">
+        select
+        con_id, username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2
+        from consumer
+        where con_id = #{conId}
+    </select>
+
+    <!--查询单个-->
     <select id="queryById" parameterType="Consumer" resultMap="BaseResultMap">
         select
         con_id, username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2
@@ -107,8 +115,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="conId" useGeneratedKeys="true">
-        insert into consumer(username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2)
-        values (#{username}, #{passwd}, #{conName}, #{conSex}, #{conTel}, #{conEmail}, #{conPhoto}, #{conStatus}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
+        insert into consumer(con_id,username, passwd, con_name, con_sex, con_tel, con_email, con_photo, con_status, gmt_create, gmt_modified, by_sp1, by_sp2)
+        values (#{conId},#{username}, #{passwd}, #{conName}, #{conSex}, #{conTel}, #{conEmail}, #{conPhoto}, #{conStatus}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
     </insert>
 
     <!--通过主键修改数据-->
@@ -158,7 +166,7 @@
 
 <!--    增加会员信息-->
     <insert id="addConsumer" parameterType="Consumer">
-        insert into consumer values(null,#{username}, #{passwd}, #{conName}, #{conSex}, #{conTel}, #{conEmail}, #{conPhoto}, #{conStatus}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2});
+        insert into consumer values(#{username}, #{passwd}, #{conName}, #{conSex}, #{conTel}, #{conEmail}, #{conPhoto}, #{conStatus}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2});
     </insert>
 
     <!--通过主键删除-->

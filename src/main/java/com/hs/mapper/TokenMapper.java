@@ -40,4 +40,9 @@ public interface TokenMapper {
      */
     int deleteById(String token);
 
+    /**
+     * 通过conId删除
+     */
+    int deleteByConId(int conId);
+
 }

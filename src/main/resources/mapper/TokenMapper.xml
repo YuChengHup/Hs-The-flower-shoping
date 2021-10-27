@@ -30,4 +30,9 @@
         delete from token where token = #{token}
     </delete>
 
+    <!--通过conId删除-->
+    <delete id="deleteByConId">
+        delete from token where con_id = #{conId}
+    </delete>
+
 </mapper>

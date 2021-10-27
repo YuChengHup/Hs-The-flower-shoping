@@ -14,6 +14,10 @@ import java.util.List;
 public interface ConsumerMapper {
 
     /**
+     * 通过id查询对象
+     */
+    Consumer selectById(int conId);
+    /**
      * 通过ID查询单条数据
      *
      * @param  consumer

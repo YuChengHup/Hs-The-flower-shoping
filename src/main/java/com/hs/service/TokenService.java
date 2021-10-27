@@ -27,6 +27,7 @@ public interface TokenService {
      */
     int insert(Token token);
 
+
     /**
      * 通过主键删除数据
      *
@@ -34,5 +35,10 @@ public interface TokenService {
      * @return 是否成功
      */
     int deleteById(String token);
+
+    /**
+     * 通过conId删除
+     */
+    int deleteByConId(int conId);
 
 }

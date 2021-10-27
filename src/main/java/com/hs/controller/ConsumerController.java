@@ -1,18 +1,26 @@
 package com.hs.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.hs.entity.Admin;
 import com.hs.entity.Consumer;
+import com.hs.entity.Token;
 import com.hs.service.ConsumerService;
+import com.hs.service.TokenService;
 import com.hs.util.RespBean;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (Consumer)表控制层
@@ -29,6 +37,72 @@ public class ConsumerController {
     @Autowired
     private ConsumerService consumerService;
 
+    @Resource
+    private TokenService tokenService;
+
+    /**
+     *登录
+     */
+    @RequestMapping("login")
+    public RespBean<String> login(Consumer consumer, ServletResponse response){
+        int i = consumerService.login(consumer);
+        RespBean<String> resp=new RespBean<>();
+        if (i==1){
+            resp.setData("用户名不存在");
+        }else if (i==3){
+            resp.setData("该用户被冻结");
+        }else if (i==0){
+            resp.setData("密码错误");
+        }else if (i==2){
+        resp.setData("登录成功");
+        Token token = new Token();
+        token.setToken(UUID.randomUUID().toString());
+        token.setConId(consumer.getConId());
+        token.setIsLogin(1);
+        tokenService.insert(token);
+        HttpServletResponse resp1 = (HttpServletResponse)response ;
+        resp1.setHeader("token", token.getToken());
+        }
+        return resp;
+    }
+    /**
+     * 退出登录
+     */
+    @GetMapping("/loginout")
+    public RespBean<String> login(Integer conId, HttpSession session) {
+        int i = tokenService.deleteByConId(conId);
+        RespBean<String> resp=new RespBean();
+        if (i==1){
+            resp.setData("已退出登录");
+            session.invalidate();
+        }else {
+            resp.setData("退出登录失败");
+        }
+        return resp;
+    }
+
+    /**
+     * 修改密码
+     */
+    @RequestMapping("uppasswd")
+    public RespBean<String> upPasswd(Consumer consumer,String passwd2){
+        int i = consumerService.upPasswd(consumer, passwd2);
+        RespBean<String> resp=new RespBean<>();
+        if (i==2){
+            resp.setCode(201);
+            resp.setData("旧密码错误");
+            return resp;
+        }else if (i==0) {
+            resp.setCode(202);
+            resp.setData("修改密码失败");
+            return resp;
+        }
+        resp.setCode(200);
+        resp.setData("修改密码成功");
+        return resp;
+    }
+
+
     /**
      * 通过主键查询单条数据
      *
@@ -39,9 +113,14 @@ public class ConsumerController {
     public RespBean<Consumer> selectOne(Consumer consumer) {
         RespBean<Consumer> respBean=new RespBean<>();
         Consumer consumer1 = consumerService.queryById(consumer);
-        respBean.setCode(200);
-        respBean.setMessage("ok");
-        respBean.setData(consumer1);
+        if (consumer1!=null){
+            respBean.setCode(200);
+            respBean.setMessage("ok");
+            respBean.setData(consumer1);
+        }else {
+            respBean.setCode(201);
+            respBean.setMessage("ok");
+        }
         return respBean;
     }
 
@@ -63,6 +142,24 @@ public class ConsumerController {
     @RequestMapping("/queryAll")
     public RespBean<PageInfo<Consumer>> queryAll(int pageNum,int pageSize,Consumer consumer){
         return RespBean.success(consumerService.queryAll(pageNum,pageSize,consumer));
+    }
+
+    @RequestMapping("/insert")
+    public RespBean<Consumer> insertCustomer(Consumer consumer){
+        consumer.setGmtCreate(LocalDateTime.now());
+        consumer.setGmtModified(LocalDateTime.now());
+        consumer.setConStatus(0);
+        RespBean<Consumer> resp=new RespBean<>();
+        Consumer consumer1 = consumerService.insert(consumer);
+        if (consumer1!=null){
+            resp.setCode(200);
+            resp.setMessage("注册成功");
+            resp.setData(consumer1);
+        }else{
+            resp.setCode(201);
+            resp.setMessage("注册失败");
+        }
+        return resp;
     }
 
     @RequestMapping("/addCustomer")
