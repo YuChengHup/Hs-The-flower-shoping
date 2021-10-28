@@ -101,4 +101,14 @@ public class AdminServiceImpl implements AdminService {
 
         }
     }
+
+    @Override
+    public Integer getMaxId() {
+        return adminMapper.getMaxId();
+    }
+
+    @Override
+    public int update(Admin admin) {
+        return adminMapper.update(admin);
+    }
 }

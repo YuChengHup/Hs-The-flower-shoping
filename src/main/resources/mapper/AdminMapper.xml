@@ -22,8 +22,8 @@
     </select>
 
     <!--    查询所有管理员-->
-    <select id="findAllAdmin" resultType="Admin">
-        select * from admin
+    <select id="findAllAdmin" resultMap="BaseResultMap">
+        select adm_id, adm_zh from admin where adm_id!=111111
     </select>
 
     <!--    添加管理员-->
@@ -46,4 +46,12 @@
         update admin set passwd=#{passwd} where adm_id=#{admId}
     </update>
 
+    <!-- 得到id列最大值 -->
+    <select id="getMaxId" resultType="java.lang.Integer">
+        select max(adm_id) adm_id from admin
+    </select>
+
+    <update id="update" parameterType="Admin">
+        update admin set adm_zh=#{admZh} where adm_id=#{admId}
+    </update>
 </mapper>

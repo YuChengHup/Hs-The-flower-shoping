@@ -48,4 +48,11 @@ public interface AdminMapper {
      */
     int updatePasswd(@Param("passwd") String newPasswd,@Param("admId") int admId);
 
+
+    Integer getMaxId();
+
+
+
+    int update(Admin admin);
+
 }

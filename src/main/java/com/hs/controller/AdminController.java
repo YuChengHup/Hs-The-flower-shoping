@@ -30,7 +30,7 @@ import java.util.UUID;
 @RequestMapping("/end/admin")
 public class AdminController {
 
-    private static Integer id = 111111;
+
     /**
      * 服务对象
      */
@@ -40,7 +40,8 @@ public class AdminController {
     private TokenService tokenService;
 
     /**
-     *                                    ============已测，没问题=====
+     * ============已测，没问题=====
+     *
      * @param admId
      * @param passwd
      * @param response
@@ -52,6 +53,7 @@ public class AdminController {
         if (admin == null) {
             return RespBean.faild();
         } else {
+
             Token token = new Token();
             token.setToken(UUID.randomUUID().toString());
             token.setAdmId(admId);
@@ -64,7 +66,8 @@ public class AdminController {
 
 
     /**
-     *                        ============已测，没问题=====
+     * ============已测，没问题=====
+     *
      * @param pageNum
      * @return
      */
@@ -76,13 +79,18 @@ public class AdminController {
 
     /**
      * 添加                ============已测，没问题=====
+     *
      * @param admin
      * @return
      */
-    @PostMapping("/addAdmin")
-    public RespBean<Admin> addAdmin(Admin admin) {
-        id++;
-        admin.setAdmId(id);
+    @PostMapping("/addAdmin/{id}")
+    public RespBean<Admin> addAdmin(@PathVariable("id") Integer id, Admin admin) {
+        if (id != 111111) {
+            return RespBean.userlmt();
+        }
+        Integer maxId = adminService.getMaxId();
+        Integer admId = maxId + 1;
+        admin.setAdmId(admId);
         int i = adminService.addAdmin(admin);
         if (i > 0) {
             return RespBean.success(admin);
@@ -91,12 +99,16 @@ public class AdminController {
     }
 
     /**
-     *                                      ============已测，没问题=====
+     * ============已测，没问题=====
+     *
      * @param admId
      * @return
      */
-    @DeleteMapping("/deleteAdmin/{admId}")
-    public RespBean<Integer> deleteAdmin(@PathVariable("admId") int admId) {
+    @DeleteMapping("/deleteAdmin/{id}/{admId}")
+    public RespBean<Integer> deleteAdmin(@PathVariable("id") Integer id, @PathVariable("admId") int admId) {
+        if (id != 111111) {
+            return RespBean.userlmt();
+        }
         int i = adminService.deleteAdmin(admId);
         if (i > 0) {
             return RespBean.success(i);
@@ -107,15 +119,19 @@ public class AdminController {
 
     /**
      * 修改密码
-     *                              =============== 已测，没问题 =======
-     * @param admId
-     * @param oldPasswd
-     * @param newPasswd
+     * =============== 已测，没问题 =======
+     *
+     * @param id        操作者
+     * @param admId     操作对象id
+     * @param oldPasswd 旧密码
+     * @param newPasswd 新密码
      * @return
      */
     @PutMapping("/updatePasswd")
-    public RespBean<Integer> updatePasswd(int admId, String oldPasswd, String newPasswd) {
-
+    public RespBean<Integer> updatePasswd(Integer id, int admId, String oldPasswd, String newPasswd) {
+        if (111111 != id) {
+            return RespBean.userlmt();
+        }
         int i = adminService.updatePasswd(admId, oldPasswd, newPasswd);
         if (i > 0) {
             return RespBean.success(i);
@@ -123,10 +139,28 @@ public class AdminController {
         return RespBean.faild();
     }
 
-    @GetMapping("/loginOut")
-    public RespBean<Integer> loginOut(Token token) {
 
-        return RespBean.success();
+    @RequestMapping("/loginOut")
+    public RespBean<Integer> loginOut(Token token) {
+        int i = tokenService.deleteById(token.getToken());
+        if (i > 0) {
+            return RespBean.success();
+        }
+        return RespBean.faild();
+
+
+    }
+
+
+    @PutMapping("/update")
+    public RespBean<Integer> update(Admin admin) {
+
+
+        int i = adminService.update(admin);
+        if (i > 0) {
+            return RespBean.success(i);
+        }
+        return RespBean.faild();
 
     }
 

@@ -7,6 +7,7 @@ public enum CodeEnum {
     SUCCESS(200, "ok"),
 
     FAILD(500, "失败"),
+    USRLMT(600, "权限不足"),
 
 
     USERORPASSERROR(300, "用户名或密码错误"),

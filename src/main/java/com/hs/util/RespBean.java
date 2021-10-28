@@ -44,6 +44,14 @@ public class RespBean<T> {
         return new RespBean<T>(CodeEnum.SUCCESS, data);
     }
 
+    public static <T> RespBean<T> userlmt() {
+        return new RespBean<T>(CodeEnum.USRLMT);
+    }
+
+    public static <T> RespBean<T> userlmt(T data) {
+        return new RespBean<T>(CodeEnum.USRLMT, data);
+    }
+
     //参数格式不正确
     public static <T> RespBean<T> badRequest() {
         return new RespBean<T>(CodeEnum.BAD_REQUEST);

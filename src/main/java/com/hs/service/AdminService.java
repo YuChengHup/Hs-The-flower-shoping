@@ -42,4 +42,13 @@ public interface AdminService {
      * 修改密码
      */
     int updatePasswd(int admId,String oldPasswd,String newPasswd);
+
+    /**
+     * 得到最大的id
+     * @return
+     */
+    Integer getMaxId();
+
+
+    int update(Admin admin);
 }
