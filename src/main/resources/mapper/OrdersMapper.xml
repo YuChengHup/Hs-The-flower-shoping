@@ -129,8 +129,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="ordId" useGeneratedKeys="true">
-        insert into orders(con_id, loc_id, ord_total_price, ord_status, ord_remark, gmt_create, gmt_modified, by_sp1, by_sp2)
-        values (#{conId}, #{locId}, #{ordTotalPrice}, #{ordStatus}, #{ordRemark}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
+        insert into orders(ord_id,con_id, loc_id, ord_total_price, ord_status, ord_remark, gmt_create, gmt_modified, by_sp1, by_sp2)
+        values (#{ordId},#{conId}, #{locId}, #{ordTotalPrice}, #{ordStatus}, #{ordRemark}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
     </insert>
 
     <!--通过主键修改数据-->
