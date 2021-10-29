@@ -3,6 +3,7 @@ package com.hs.controller;
 import com.github.pagehelper.PageInfo;
 import com.hs.entity.Commodity;
 import com.hs.entity.CommodityVO;
+import com.hs.entity.FrontRole;
 import com.hs.entity.Photo;
 import com.hs.service.CommodityService;
 import com.hs.service.PhotoService;
@@ -119,7 +120,7 @@ public class CommodityController {
             }
             for (int j = 0; j < multipartFiles.length; j++) {
                 try {
-                    multipartFiles[j].transferTo(new File("E:\\web-shop-group1\\web-shop-front\\end\\images\\" + photoList.get(j).getPhoUrl()));
+                    multipartFiles[j].transferTo(new File("E:\\web-shop-group1\\web-shop-front\\images\\" + photoList.get(j).getPhoUrl()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -169,4 +170,11 @@ public class CommodityController {
         return RespBean.success(commodityService.queryNum());
     }
 
+
+
+    @PostMapping("/query_all_front/{pageNum}")
+    public RespBean<PageInfo<CommodityVO>> queryAllFront(@PathVariable("pageNum") Integer pageNum, FrontRole frontRole) {
+        PageInfo<CommodityVO> commodityPageInfo = commodityService.queryAllFront(pageNum, frontRole);
+        return RespBean.success(commodityPageInfo);
+    }
 }

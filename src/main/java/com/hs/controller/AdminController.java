@@ -54,6 +54,8 @@ public class AdminController {
             return RespBean.faild();
         } else {
 
+
+
             Token token = new Token();
             token.setToken(UUID.randomUUID().toString());
             token.setAdmId(admId);

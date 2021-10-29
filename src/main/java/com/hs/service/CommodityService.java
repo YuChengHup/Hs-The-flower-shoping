@@ -3,6 +3,7 @@ package com.hs.service;
 import com.github.pagehelper.PageInfo;
 import com.hs.entity.Commodity;
 import com.hs.entity.CommodityVO;
+import com.hs.entity.FrontRole;
 
 /**
  * (Commodity)表服务接口
@@ -76,5 +77,8 @@ public interface CommodityService {
      * @return
      */
     Long queryNum();
+
+
+    PageInfo<CommodityVO> queryAllFront(Integer pageNum,FrontRole frontRole);
 
 }

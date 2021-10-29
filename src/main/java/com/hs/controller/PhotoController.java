@@ -60,7 +60,7 @@ public class PhotoController {
         int i = photoService.insert(photo);
         if (i > 0) {
             try {
-                file.transferTo(new File("E:\\web-shop-group1\\web-shop-front\\end\\images\\" + name));
+                file.transferTo(new File("E:\\web-shop-group1\\web-shop-front\\images\\" + name));
             } catch (IOException e) {
                 e.printStackTrace();
             }

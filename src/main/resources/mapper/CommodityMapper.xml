@@ -154,4 +154,34 @@
         delete from commodity where com_id = #{comId}
     </delete>
 
+
+    <select id="queryAllFront" resultMap="BaseResultMap">
+        select
+        com_id, com_name, com_purch_price, com_price, com_num, com_description, com_volume, gmt_create, gmt_modified,
+        by_sp1, by_sp2,commodity.sor_id,sor_name,size.siz_id,siz_name
+        from commodity,sort,size
+        <where>
+
+            <if test="comName != null and comName != ''">
+                and com_name like concat('%',#{comName},'%')
+            </if>
+            <if test="sorId != null">
+                and commodity.sor_id = #{sorId}
+            </if>
+            <if test="sizId != null">
+                and sort.siz_id = #{sizId}
+            </if>
+            and commodity.sor_id=sort.sor_id and sort.siz_id=size.siz_id
+        </where>
+        <if test="priceDesc != null and priceDesc != ''">
+            order by com_price desc
+        </if>
+        <if test="priceAsc != null and priceAsc != ''">
+            order by com_price asc
+        </if>
+        <if test="comVolume != null and comVolume != ''">
+            order by com_volume desc
+        </if>
+    </select>
+
 </mapper>

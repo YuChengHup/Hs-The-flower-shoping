@@ -2,6 +2,7 @@ package com.hs.mapper;
 
 import com.hs.entity.Commodity;
 import com.hs.entity.CommodityVO;
+import com.hs.entity.FrontRole;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -75,5 +76,8 @@ public interface CommodityMapper {
      * @return
      */
     Long queryNum();
+
+
+    List<CommodityVO> queryAllFront(FrontRole frontRole);
 
 }

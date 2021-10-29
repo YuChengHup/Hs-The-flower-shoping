@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hs.entity.Commodity;
 import com.hs.entity.CommodityVO;
+import com.hs.entity.FrontRole;
 import com.hs.mapper.CommodityMapper;
 import com.hs.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +110,13 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public Long queryNum() {
         return commodityMapper.queryNum();
+    }
+
+    @Override
+    public PageInfo<CommodityVO> queryAllFront(Integer pageNum,FrontRole frontRole) {
+        PageHelper.startPage(pageNum,frontRole.getPageSize());
+        List<CommodityVO> commodityVOList = commodityMapper.queryAllFront(frontRole);
+        return new PageInfo<>(commodityVOList);
     }
 
 
