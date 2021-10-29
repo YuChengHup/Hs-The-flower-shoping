@@ -1,6 +1,7 @@
 package com.hs.mapper;
 
 import com.hs.entity.Cart;
+import com.hs.entity.CartVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,6 +30,14 @@ public interface CartMapper {
      * @return 对象列表
      */
     List<Cart> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+
+
+    /**
+     * 通过conID查询购物车信息
+     * @param conId
+     * @return
+     */
+    List<CartVO> findCommodity(Integer conId);
 
 
     /**

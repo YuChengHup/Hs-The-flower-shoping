@@ -1,6 +1,7 @@
 package com.hs.service.impl;
 
 import com.hs.entity.Cart;
+import com.hs.entity.CartVO;
 import com.hs.mapper.CartMapper;
 import com.hs.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,11 @@ public class CartServiceImpl implements CartService {
         return this.cartMapper.queryAllByLimit(offset, limit);
     }
 
+    @Override
+    public List<CartVO> findCommodity(Integer conId) {
+        return cartMapper.findCommodity(conId);
+    }
+
     /**
      * 新增数据
      *
@@ -51,9 +57,8 @@ public class CartServiceImpl implements CartService {
      * @return 实例对象
      */
     @Override
-    public Cart insert(Cart cart) {
-        this.cartMapper.insert(cart);
-        return cart;
+    public int insert(Cart cart) {
+        return cartMapper.insert(cart);
     }
 
     /**

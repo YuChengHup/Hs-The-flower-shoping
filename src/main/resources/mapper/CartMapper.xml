@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hs.mapper.CartMapper">
 
-    <resultMap id="BaseResultMap" type="com.hs.entity.Cart">
+    <resultMap id="BaseResultMap" type="Cart">
         <!--@Table cart-->
         <result property="carId" column="car_id" jdbcType="INTEGER"/>
         <result property="comId" column="com_id" jdbcType="INTEGER"/>
@@ -13,6 +13,32 @@
         <result property="bySp1" column="by_sp1" jdbcType="VARCHAR"/>
         <result property="bySp2" column="by_sp2" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <resultMap id="sc" type="CartVO">
+        <result property="conNum" column="con_num" javaType="INTEGER"/>
+        <result property="carId" column="car_id"/>
+        <result property="gmtCreate" column="gmt_create" />
+        <result property="conId" column="con_Id"/>
+        <association property="commodity" column="commodity" javaType="Commodity">
+            <result property="comName" column="com_name"/>
+            <result property="comPrice" column="com_price"/>
+            <result property="comNum" column="com_num"/>
+            <result property="comVolume" column="com_volume"/>
+            <result property="comDescription" column="com_description"/>
+            <result property="comId" column="com_id"/>
+            <result property="comPurchPrice" column="com_purch_price"/>
+            <result property="gmtCreate" column="gmt_create"/>
+            <result property="sorId" column="sor_id"/>
+        </association>
+    </resultMap>
+
+    <select id="findCommodity"  resultMap="sc">
+        select
+          car_id,com_name,com_price,com_num,com_volume,con_num,co.com_description,ca.gmt_create,ca.con_Id,
+          co.com_id,co.com_purch_price,co.sor_id,co.gmt_create
+        from cart ca ,commodity co
+        where ca.com_id=co.com_id AND ca.con_id=#{conId}
+    </select>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
@@ -65,8 +91,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="carId" useGeneratedKeys="true">
-        insert into cart(com_id, con_id, con_num, gmt_create, gmt_modified, by_sp1, by_sp2)
-        values (#{comId}, #{conId}, #{conNum}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
+        insert into cart
+        values (NULL,#{comId}, #{conId}, #{conNum}, #{gmtCreate}, #{gmtModified}, #{bySp1}, #{bySp2})
     </insert>
 
     <!--通过主键修改数据-->

@@ -1,6 +1,7 @@
 package com.hs.service;
 
 import com.hs.entity.Cart;
+import com.hs.entity.CartVO;
 
 import java.util.List;
 
@@ -29,13 +30,21 @@ public interface CartService {
      */
     List<Cart> queryAllByLimit(int offset, int limit);
 
+
+    /**
+     * 通过conId查询购物车信息
+     * @param conId
+     * @return
+     */
+    List<CartVO> findCommodity(Integer conId);
+
     /**
      * 新增数据
      *
      * @param cart 实例对象
      * @return 实例对象
      */
-    Cart insert(Cart cart);
+    int insert(Cart cart);
 
     /**
      * 修改数据
