@@ -3,11 +3,7 @@ package com.hs.interceptor;
 
 import com.hs.entity.Token;
 import com.hs.mapper.TokenMapper;
-import com.hs.service.AdminService;
-import com.hs.util.RespBean;
-import org.apache.ibatis.plugin.Intercepts;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 

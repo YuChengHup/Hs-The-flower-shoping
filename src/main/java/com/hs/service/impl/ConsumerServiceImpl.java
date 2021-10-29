@@ -158,7 +158,7 @@ public class ConsumerServiceImpl implements ConsumerService {
         }
         Consumer consumer2=new Consumer();
         consumer2.setConId(consumer.getConId());
-        System.out.println(consumer2.getPasswd());
+        consumer2.setPasswd(passwd2);
         return consumerMapper.update(consumer2);
     }
 

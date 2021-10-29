@@ -1,5 +1,7 @@
 package com.hs.mapper;
 
+import com.hs.entity.Consumer;
+import com.hs.entity.Location;
 import com.hs.entity.Orders;
 import org.apache.ibatis.annotations.Param;
 
@@ -43,8 +45,7 @@ public interface OrdersMapper {
 
 
     /**
-     * 新增数据
-     *
+     * 新增数量
      * @param orders 实例对象
      * @return 影响行数
      */

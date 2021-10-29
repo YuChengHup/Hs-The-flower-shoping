@@ -1,7 +1,7 @@
 package com.hs.service;
 
 import com.github.pagehelper.PageInfo;
-import com.hs.entity.Orders;
+import com.hs.entity.*;
 
 import java.util.List;
 

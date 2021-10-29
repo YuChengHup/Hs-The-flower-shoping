@@ -28,7 +28,7 @@ public class Statistic implements Serializable {
     /**
     * 统计日期
     */
-    private LocalDateTime gmtCreate;
+    private LocalDateTime staDate;
     /**
     * 统计商品
     */

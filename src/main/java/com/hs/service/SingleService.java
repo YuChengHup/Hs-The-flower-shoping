@@ -1,6 +1,8 @@
 package com.hs.service;
 
 import com.github.pagehelper.PageInfo;
+import com.hs.entity.Cart;
+import com.hs.entity.Location;
 import com.hs.entity.Orders;
 import com.hs.entity.Single;
 
@@ -39,10 +41,9 @@ public interface SingleService {
     /**
      * 新增数据
      *
-     * @param single 实例对象
      * @return 实例对象
      */
-    Single insert(Single single);
+    int insert(int[] ints, Location location);
 
     /**
      * 修改数据

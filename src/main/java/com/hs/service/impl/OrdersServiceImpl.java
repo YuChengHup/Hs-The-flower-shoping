@@ -2,7 +2,10 @@ package com.hs.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hs.entity.Commodity;
+import com.hs.entity.Location;
 import com.hs.entity.Orders;
+import com.hs.entity.Single;
 import com.hs.mapper.OrdersMapper;
 import com.hs.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;

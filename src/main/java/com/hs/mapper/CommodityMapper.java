@@ -22,7 +22,6 @@ public interface CommodityMapper {
      */
     CommodityVO queryById(Integer comId);
 
-
     /**
      * 通过实体作为筛选条件查询，可以用
      *

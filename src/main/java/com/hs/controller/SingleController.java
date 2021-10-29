@@ -79,4 +79,22 @@ public class SingleController {
         return resp;
     }
 
+    /**
+     * 添加单一订单，同时添加其他订单
+     */
+    @RequestMapping("/insert")
+    public RespBean<String> insert(Location location,int[]ints ){
+        int a=ints.length;
+        int i = singleService.insert(ints, location);
+        RespBean<String> resp=new RespBean<>();
+        if (i!=4*a+2){
+            resp.setCode(201);
+            resp.setData("提交订单失败");
+        }else{
+            resp.setCode(200);
+            resp.setData("提交订单成功");
+        }
+        return resp;
+    }
+
 }

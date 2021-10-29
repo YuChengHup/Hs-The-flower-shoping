@@ -57,6 +57,13 @@ public class OrdersController {
         return resp;
     }
 
+    /**
+     * 通过多表更新订单表
+     * @param orders
+     * @param consumer
+     * @param location
+     * @return
+     */
     @RequestMapping("update")
     public RespBean<String> updateOrders(Orders orders, Consumer consumer, Location location){
         orders.setConsumer(consumer);
@@ -71,6 +78,9 @@ public class OrdersController {
         return resp;
     }
 
+    /**
+     *根据id删除订单
+     */
     @RequestMapping("delete")
     public RespBean<String> deleteById(Integer id){
         int i = ordersService.deleteById(id);
@@ -92,5 +102,4 @@ public class OrdersController {
     public RespBean<Long> queryNum() {
         return RespBean.success(ordersService.queryNum());
     }
-
 }
