@@ -57,6 +57,16 @@ public class OrdersController {
         return resp;
     }
 
+    @RequestMapping("/selectByStatus")
+    public RespBean<PageInfo<Orders>> selectByStatus(int page,Orders orders){
+        PageInfo<Orders> pageInfo = ordersService.queryAllAndLimit(page, orders);
+        RespBean<PageInfo<Orders>> resp=new RespBean<>();
+        resp.setCode(200);
+        resp.setMessage("查询成功");
+        resp.setData(pageInfo);
+        return resp;
+    }
+
     /**
      * 通过多表更新订单表
      * @param orders
