@@ -81,4 +81,11 @@ public interface CommodityService {
 
     PageInfo<CommodityVO> queryAllFront(Integer pageNum,FrontRole frontRole);
 
+    /**
+     * 查询该分类下植物数量
+     * @param sorId
+     * @return
+     */
+    Long numBySorId(Integer sorId);
+
 }

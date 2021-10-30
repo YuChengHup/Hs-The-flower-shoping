@@ -3,6 +3,7 @@ package com.hs.controller;
 import com.github.pagehelper.PageInfo;
 import com.hs.entity.Sort;
 import com.hs.entity.SortVO;
+import com.hs.service.CommodityService;
 import com.hs.service.SortService;
 import com.hs.util.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,8 @@ public class SortController {
      */
     @Autowired
     private SortService sortService;
-
+    @Autowired
+    private CommodityService commodityService;
     /**
      * 通过主键查询单条数据                 ============已测，没问题================
      *
@@ -106,6 +108,12 @@ public class SortController {
      */
     @DeleteMapping("/delete_one/{sor_id}")
     public RespBean<Boolean> deleteOne(@PathVariable("sor_id") Integer sor_id) {
+
+        Long numBySorId = commodityService.numBySorId(sor_id);
+        if(numBySorId>0){
+            return RespBean.userlmt(false);
+        }
+
         Boolean b = sortService.deleteById(sor_id);
         if (b) {
             return RespBean.success(b);

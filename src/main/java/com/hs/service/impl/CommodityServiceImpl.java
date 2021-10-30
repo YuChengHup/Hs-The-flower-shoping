@@ -119,5 +119,10 @@ public class CommodityServiceImpl implements CommodityService {
         return new PageInfo<>(commodityVOList);
     }
 
+    @Override
+    public Long numBySorId(Integer sorId) {
+        return commodityMapper.numBySorId(sorId);
+    }
+
 
 }

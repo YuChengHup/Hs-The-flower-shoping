@@ -77,7 +77,13 @@ public interface CommodityMapper {
      */
     Long queryNum();
 
-
+    /**
+     * 用于前台
+     * @param frontRole
+     * @return
+     */
     List<CommodityVO> queryAllFront(FrontRole frontRole);
+
+    Long numBySorId(Integer sorId);
 
 }
