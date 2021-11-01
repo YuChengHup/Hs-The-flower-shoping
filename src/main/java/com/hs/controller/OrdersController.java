@@ -117,17 +117,6 @@ public class OrdersController {
     }
 
 
-    @RequestMapping("lectByStatus")
-    public RespBean<PageInfo<Orders>> selectByStatus(int page, Orders orders) {
-        PageInfo<Orders> pageInfo = ordersService.queryAllAndLimit(page, orders);
-        RespBean<PageInfo<Orders>> resp = new RespBean<>();
-        resp.setCode(200);
-        resp.setMessage("查询成功");
-        resp.setData(pageInfo);
-        return resp;
-    }
-
-
     @GetMapping("queryByConId")
     public RespBean<PageInfo<Orders>> queryByConId(int page, Integer conId, String ordStatus) {
         Consumer consumer = new Consumer();

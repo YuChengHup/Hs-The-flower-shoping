@@ -46,6 +46,12 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public List<Cart> queryAll1(Cart cart) {
+        List<Cart> cartList = cartMapper.queryAll(cart);
+        return cartList;
+    }
+
+    @Override
     public List<CartVO> findCommodity(Integer conId) {
         return cartMapper.findCommodity(conId);
     }

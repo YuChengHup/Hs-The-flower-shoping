@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.swing.text.Caret;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -40,9 +41,20 @@ public class CartController {
          if (i>0){
              return RespBean.success(i);
          }
-
          return RespBean.faild();
      }
+
+    /**
+     * 查询几件商品
+     */
+    @RequestMapping("/findCartNum")
+    public RespBean<Integer> findCartNum(Cart cart){
+        List<Cart> cartList = cartService.queryAll1(cart);
+        RespBean<Integer> resp=new RespBean<>();
+        resp.setData(cartList.size());
+        resp.setCode(200);
+        return resp;
+    }
 
 
     /**

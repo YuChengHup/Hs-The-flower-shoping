@@ -30,7 +30,7 @@ public interface CartService {
      */
     List<Cart> queryAllByLimit(int offset, int limit);
 
-
+    List<Cart> queryAll1(Cart cart);
     /**
      * 通过conId查询购物车信息
      * @param conId
