@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Service
 public class OrdersServiceImpl implements OrdersService {
-    private int size=5;
+    private int size=10;
 
     @Resource
     private OrdersMapper ordersMapper;
@@ -102,5 +102,17 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public Long queryNum() {
         return ordersMapper.queryNum();
+    }
+
+    @Override
+    public PageInfo<Orders> queryByConId(Integer pageNum,Orders orders) {
+        PageHelper.startPage(pageNum,size);
+        List<Orders> orders1 = ordersMapper.queryByConId(orders);
+        return new PageInfo<>(orders1);
+    }
+
+    @Override
+    public int updateByOrdId(Orders orders) {
+        return ordersMapper.updateByOrdId(orders);
     }
 }

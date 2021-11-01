@@ -5,10 +5,7 @@ import com.hs.entity.CartVO;
 import com.hs.service.CartService;
 import com.hs.util.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -72,6 +69,15 @@ public class CartController {
             return RespBean.success();
         }
 
+        return RespBean.faild();
+    }
+
+    @PutMapping("/update")
+    public RespBean<Integer> update(Cart cart){
+        int i= cartService.update(cart);
+        if (i>0){
+            return RespBean.success(i);
+        }
         return RespBean.faild();
     }
 

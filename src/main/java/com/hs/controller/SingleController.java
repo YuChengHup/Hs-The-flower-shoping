@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Single)表控制层
@@ -97,4 +98,11 @@ public class SingleController {
         return resp;
     }
 
+
+
+    @RequestMapping("/queryByOrdId")
+    public RespBean<List<Single>> queryByOrdId(Integer ordId ){
+        List<Single> singleList = singleService.queryByOrdId(ordId);
+        return RespBean.success(singleList);
+    }
 }

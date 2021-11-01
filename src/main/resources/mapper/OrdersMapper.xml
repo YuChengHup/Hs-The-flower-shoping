@@ -173,4 +173,25 @@
         delete from orders where ord_id = #{ordId}
     </delete>
 
+
+    <select id="queryByConId" resultMap="BaseResultMap">
+        select
+        o.ord_id, c.con_name, l.loc_address, o.ord_total_price, o.ord_status, o.ord_remark, o.gmt_create, o.gmt_modified, o.by_sp1, o.by_sp2
+        from orders o,consumer c,location l
+        <where>
+            <if test="ordStatus != null and ordStatus !=''" >
+                and o.ord_status = #{ordStatus}
+            </if>
+            and o.con_id=c.con_id and o.loc_id=l.loc_id and c.con_id=#{consumer.conId}
+        </where>
+    </select>
+
+
+    <!--通过主键修改数据-->
+    <update id="updateByOrdId" parameterType="Orders">
+        update orders set ord_status=#{ordStatus}
+        where ord_id = #{ordId}
+    </update>
+
+
 </mapper>

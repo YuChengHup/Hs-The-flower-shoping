@@ -21,15 +21,6 @@ public interface LocationMapper {
      */
     Location queryById(Integer locId);
 
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Location> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
-
 
     /**
      * 通过实体作为筛选条件查询

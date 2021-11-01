@@ -98,29 +98,7 @@
     <!--通过主键修改数据-->
     <update id="update">
         update cart
-        <set>
-            <if test="comId != null">
-                com_id = #{comId},
-            </if>
-            <if test="conId != null">
-                con_id = #{conId},
-            </if>
-            <if test="conNum != null">
-                con_num = #{conNum},
-            </if>
-            <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate},
-            </if>
-            <if test="gmtModified != null">
-                gmt_modified = #{gmtModified},
-            </if>
-            <if test="bySp1 != null and bySp1 != ''">
-                by_sp1 = #{bySp1},
-            </if>
-            <if test="bySp2 != null and bySp2 != ''">
-                by_sp2 = #{bySp2},
-            </if>
-        </set>
+        set con_num = #{conNum}
         where car_id = #{carId}
     </update>
 

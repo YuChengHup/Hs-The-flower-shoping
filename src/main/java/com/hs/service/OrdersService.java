@@ -64,4 +64,13 @@ public interface OrdersService {
      * @return
      */
     Long queryNum();
+
+    /**
+     * 根据用户和状态查询
+     * @param orders
+     * @return
+     */
+    PageInfo<Orders> queryByConId(Integer pageNum,Orders orders);
+
+    int updateByOrdId(Orders orders);
 }

@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 @Service
 public class SingleServiceImpl implements SingleService {
-    private int size=3;
+    private int size=5;
     @Resource
     private LocationMapper locationMapper;
 
@@ -233,5 +233,10 @@ public class SingleServiceImpl implements SingleService {
     @Override
     public int deleteById(Integer sinId) {
         return this.singleMapper.deleteById(sinId);
+    }
+
+    @Override
+    public List<Single> queryByOrdId(Integer ordId) {
+        return singleMapper.queryByOrdId(ordId);
     }
 }

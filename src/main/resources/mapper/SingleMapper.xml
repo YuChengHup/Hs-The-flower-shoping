@@ -26,6 +26,15 @@
         where sin_id = #{sinId}
     </select>
 
+
+    <select id="queryByOrdId" resultMap="BaseResultMap">
+        select
+          s.sin_id, s.ord_id, c.com_name, s.sin_num, s.sin_price, s.gmt_create
+        from single s,commodity c
+        where ord_id = #{ordId} and s.com_id=c.com_id
+    </select>
+
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">
         select

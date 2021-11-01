@@ -65,4 +65,7 @@ public interface SingleMapper {
      */
     int deleteById(Integer sinId);
 
+
+    List<Single> queryByOrdId(Integer ordId);
+
 }

@@ -68,9 +68,9 @@ public class CartServiceImpl implements CartService {
      * @return 实例对象
      */
     @Override
-    public Cart update(Cart cart) {
-        this.cartMapper.update(cart);
-        return this.queryById(cart.getCarId());
+    public int update(Cart cart) {
+
+        return cartMapper.update(cart);
     }
 
     /**

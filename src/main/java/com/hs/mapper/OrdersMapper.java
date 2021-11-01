@@ -69,4 +69,13 @@ public interface OrdersMapper {
 
     Long queryNum();
 
+    /**
+     * 根据用户和状态查询
+     * @param orders
+     * @return
+     */
+    List<Orders> queryByConId(Orders orders);
+
+
+    int updateByOrdId(Orders orders);
 }

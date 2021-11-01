@@ -32,6 +32,11 @@ public class LocationServiceImpl implements LocationService {
         return this.locationMapper.queryById(locId);
     }
 
+    @Override
+    public List<Location> queryAll(Location location) {
+        return locationMapper.queryAll(location);
+    }
+
     /**
      * 查询多条数据
      *
@@ -39,10 +44,7 @@ public class LocationServiceImpl implements LocationService {
      * @param limit 查询条数
      * @return 对象列表
      */
-    @Override
-    public List<Location> queryAllByLimit(int offset, int limit) {
-        return this.locationMapper.queryAllByLimit(offset, limit);
-    }
+
 
     /**
      * 新增数据
@@ -51,9 +53,9 @@ public class LocationServiceImpl implements LocationService {
      * @return 实例对象
      */
     @Override
-    public Location insert(Location location) {
-        this.locationMapper.insert(location);
-        return location;
+    public int insert(Location location) {
+
+        return locationMapper.insert(location);
     }
 
     /**
@@ -76,6 +78,6 @@ public class LocationServiceImpl implements LocationService {
      */
     @Override
     public boolean deleteById(Integer locId) {
-        return this.locationMapper.deleteById(locId) > 0;
+        return locationMapper.deleteById(locId) > 0;
     }
 }

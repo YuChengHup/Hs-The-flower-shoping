@@ -61,4 +61,7 @@ public interface SingleService {
      */
     int deleteById(Integer sinId);
 
+
+    List<Single> queryByOrdId(Integer ordId);
+
 }

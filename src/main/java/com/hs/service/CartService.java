@@ -52,7 +52,7 @@ public interface CartService {
      * @param cart 实例对象
      * @return 实例对象
      */
-    Cart update(Cart cart);
+    int update(Cart cart);
 
     /**
      * 通过主键删除数据
