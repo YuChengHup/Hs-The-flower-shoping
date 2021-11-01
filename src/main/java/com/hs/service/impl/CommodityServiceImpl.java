@@ -25,6 +25,11 @@ public class CommodityServiceImpl implements CommodityService {
     @Autowired
     private CommodityMapper commodityMapper;
 
+    @Override
+    public List<CommodityVO> selectAll(Commodity commodity) {
+        return commodityMapper.queryAll(commodity);
+    }
+
     /**
      * 通过ID查询单条数据
      *

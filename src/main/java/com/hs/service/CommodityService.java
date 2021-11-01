@@ -5,6 +5,8 @@ import com.hs.entity.Commodity;
 import com.hs.entity.CommodityVO;
 import com.hs.entity.FrontRole;
 
+import java.util.List;
+
 /**
  * (Commodity)表服务接口
  *
@@ -15,6 +17,12 @@ public interface CommodityService {
 
 
     Integer PAGESIZE=5;   // 每页显示几个
+    /**
+     * 查询所有商品，为了销售数量表和利润表
+     */
+    List<CommodityVO> selectAll(Commodity commodity);
+
+
     /**
      * 通过ID查询单条数据
      *

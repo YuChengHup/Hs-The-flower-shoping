@@ -38,6 +38,18 @@ public class CommodityController {
 
     @Autowired
     private PhotoService photoService;
+    /**
+     * 查询所有商品，为了销售数量表和利润表
+     */
+    @RequestMapping("/selectAllCommodity")
+    private RespBean<List<CommodityVO>> selectAllCommodity(){
+        Commodity commodity=new Commodity();
+        List<CommodityVO> commodityVOList = commodityService.selectAll(commodity);
+        RespBean<List<CommodityVO>> resp=new RespBean();
+        resp.setCode(200);
+        resp.setData(commodityVOList);
+        return resp;
+    }
 
     /**
      * 通过主键查询单条数据        ================已测，没问题====
