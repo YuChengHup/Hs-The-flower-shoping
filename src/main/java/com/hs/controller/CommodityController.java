@@ -132,7 +132,7 @@ public class CommodityController {
             }
             for (int j = 0; j < multipartFiles.length; j++) {
                 try {
-                    multipartFiles[j].transferTo(new File("E:\\web-shop-group1\\web-shop-front\\images\\" + photoList.get(j).getPhoUrl()));
+                    multipartFiles[j].transferTo(new File("/root/nginx-www/www/images/" + photoList.get(j).getPhoUrl()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
